@@ -41,5 +41,12 @@
             android:layout_height="wrap_content"
             layout="@layout/buttongroupviewlayout" />
 
+        <include
+            android:id="@+id/buttonGroupView"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/topwelcomescreenlayout" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
