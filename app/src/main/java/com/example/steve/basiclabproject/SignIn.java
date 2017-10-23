@@ -30,6 +30,7 @@ public class SignIn extends AppCompatActivity  implements View.OnClickListener {
     private EditText editTextPassword;
 
     private Button btn;
+    private Button btn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class SignIn extends AppCompatActivity  implements View.OnClickListener {
     }
 
     public void exit(View view){
+
+        btn2= (Button)findViewById(R.id.buttonBack);
         finish();
     }
 
