@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Φιλοξενητής: 127.0.0.1
--- Χρόνος δημιουργίας: 16 Οκτ 2017 στις 01:47:46
--- Έκδοση διακομιστή: 10.1.26-MariaDB
--- Έκδοση PHP: 7.1.9
+-- Χρόνος δημιουργίας: 22 Οκτ 2017 στις 17:01:47
+-- Έκδοση διακομιστή: 10.1.19-MariaDB
+-- Έκδοση PHP: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,18 +17,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Βάση δεδομένων: `projecttl`
+-- Βάση δεδομένων: `project4semester`
 --
 
 -- --------------------------------------------------------
 
 --
--- Δομή πίνακα για τον πίνακα `brands`
+-- Δομή πίνακα για τον πίνακα `brand`
 --
 
-CREATE TABLE `brands` (
+CREATE TABLE `brand` (
   `BrandID` int(11) NOT NULL,
-  `BrandName` varchar(50) NOT NULL
+  `BrandName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -53,11 +51,12 @@ CREATE TABLE `category` (
 
 CREATE TABLE `customers` (
   `CustomerID` int(11) NOT NULL,
-  `Country` int(50) NOT NULL,
-  `City` int(50) NOT NULL,
-  `Address` int(50) NOT NULL,
-  `PostalCode` int(20) NOT NULL,
-  `PhoneNumber` varchar(20) NOT NULL
+  `Country` varchar(20) NOT NULL,
+  `City` varchar(50) NOT NULL,
+  `Adress` varchar(50) NOT NULL,
+  `PostalCode` varchar(20) NOT NULL,
+  `PhoneNumber` varchar(20) NOT NULL,
+  `ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -69,15 +68,15 @@ CREATE TABLE `customers` (
 CREATE TABLE `products` (
   `ProductID` int(11) NOT NULL,
   `BrandID` int(11) NOT NULL,
-  `CategoryID` int(11) NOT NULL,
+  `ProductName` varchar(50) NOT NULL,
+  `ProductDesctription` text NOT NULL,
   `CustomerID` int(11) NOT NULL,
   `VendorID` int(11) NOT NULL,
-  `ProductName` varchar(50) NOT NULL,
-  `ProductDescription` text NOT NULL,
-  `Price` decimal(8,2) NOT NULL,
+  `Discount` varchar(20) NOT NULL,
+  `Price` float NOT NULL,
   `Size` varchar(20) NOT NULL,
   `Color` varchar(20) NOT NULL,
-  `Discount` float NOT NULL
+  `CategoryID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -89,10 +88,11 @@ CREATE TABLE `products` (
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
   `Username` varchar(50) NOT NULL,
-  `Password` varchar(30) NOT NULL,
+  `Password` varchar(20) NOT NULL,
   `FirstName` varchar(50) NOT NULL,
   `LastName` varchar(50) NOT NULL,
-  `Email` varchar(50) NOT NULL
+  `Email` varchar(50) NOT NULL,
+  `PhoneNumber` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -103,9 +103,10 @@ CREATE TABLE `users` (
 
 CREATE TABLE `vendors` (
   `VendorID` int(11) NOT NULL,
-  `CompanyName` varchar(50) NOT NULL,
-  `Phone1` varchar(20) NOT NULL,
-  `Phone2` varchar(20) NOT NULL
+  `ID` int(11) NOT NULL,
+  `CompanyName` varchar(30) NOT NULL,
+  `Phone1` varchar(50) NOT NULL,
+  `Phone2` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -113,9 +114,9 @@ CREATE TABLE `vendors` (
 --
 
 --
--- Ευρετήρια για πίνακα `brands`
+-- Ευρετήρια για πίνακα `brand`
 --
-ALTER TABLE `brands`
+ALTER TABLE `brand`
   ADD PRIMARY KEY (`BrandID`);
 
 --
@@ -134,18 +135,15 @@ ALTER TABLE `customers`
 -- Ευρετήρια για πίνακα `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`ProductID`),
-  ADD KEY `CustomerID` (`CustomerID`),
-  ADD KEY `VendorID` (`VendorID`),
-  ADD KEY `CategoryID` (`CategoryID`),
-  ADD KEY `BrandID` (`BrandID`);
+  ADD PRIMARY KEY (`ProductID`);
 
 --
 -- Ευρετήρια για πίνακα `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `Username` (`Username`);
+  ADD UNIQUE KEY `Username` (`Username`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Ευρετήρια για πίνακα `vendors`
@@ -158,55 +156,20 @@ ALTER TABLE `vendors`
 --
 
 --
--- AUTO_INCREMENT για πίνακα `brands`
+-- AUTO_INCREMENT για πίνακα `brand`
 --
-ALTER TABLE `brands`
+ALTER TABLE `brand`
   MODIFY `BrandID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT για πίνακα `category`
 --
 ALTER TABLE `category`
   MODIFY `CategoryID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT για πίνακα `products`
 --
 ALTER TABLE `products`
   MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT για πίνακα `users`
---
-ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Περιορισμοί για άχρηστους πίνακες
---
-
---
--- Περιορισμοί για πίνακα `customers`
---
-ALTER TABLE `customers`
-  ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `users` (`ID`);
-
---
--- Περιορισμοί για πίνακα `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`),
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`VendorID`) REFERENCES `vendors` (`VendorID`),
-  ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`CategoryID`) REFERENCES `category` (`CategoryID`),
-  ADD CONSTRAINT `products_ibfk_4` FOREIGN KEY (`BrandID`) REFERENCES `brands` (`BrandID`);
-
---
--- Περιορισμοί για πίνακα `vendors`
---
-ALTER TABLE `vendors`
-  ADD CONSTRAINT `vendors_ibfk_1` FOREIGN KEY (`VendorID`) REFERENCES `users` (`ID`);
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
