@@ -32,6 +32,7 @@ public welcomeScreenActivity act;
 
     @Before
     public void setUp() throws Exception {
+        //kataxwrw thn activity pou me endiaferei
 act= mActivity.getActivity();
     }
 
