@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#6C648D"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tVUserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="My Profile" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/UserImage"
+            android:layout_width="134dp"
+            android:layout_height="137dp"
+            app:srcCompat="@android:drawable/picture_frame" />
+
+        <TextView
+            android:id="@+id/tVUser_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:text="UserName"
+            android:background="@android:color/white"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:paddingTop="?android:attr/listPreferredItemPaddingStart">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tVF_name"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+            android:text="First Name:" />
+
+        <TextView
+            android:id="@+id/tVFirst_name"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            android:text="vdbvzdb" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tVL_name"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+            android:text="Last Name:" />
+
+        <TextView
+            android:id="@+id/tVLast_name"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            android:text="mfnmncnn"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tVEmail"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+            android:text="Email:" />
+
+        <TextView
+            android:id="@+id/tVE_mail"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            android:text="adzvz@zbxfb"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tVPhoneNumber"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+            android:text="Phone Number:" />
+
+        <TextView
+            android:id="@+id/tVPhone_Number"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            android:text="357866878989"/>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="18dp"
+            android:layout_marginStart="17dp"
+            android:text="BUY" />
+
+        <Button
+            android:id="@+id/buttonSell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/buttonBuy"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="17dp"
+            android:text="SELL" />
+    </RelativeLayout>
+
+</LinearLayout>
