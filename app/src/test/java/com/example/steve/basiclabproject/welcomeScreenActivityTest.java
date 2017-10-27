@@ -2,7 +2,9 @@ package com.example.steve.basiclabproject;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +12,7 @@ import static org.junit.Assert.*;
  * Created by freaksoul on 17/10/2017.
  */
 public class welcomeScreenActivityTest {
+
     @Before
     public void setUp() throws Exception {
 
