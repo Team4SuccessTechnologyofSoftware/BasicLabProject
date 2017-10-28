@@ -16,13 +16,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dp">
+
         <TextView
+            android:id="@+id/UserNameSignInTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:background="#ffffff"
             android:text="Username"
-            android:textSize="30dp"/>
+            android:textAlignment="center"
+            android:textSize="30dp" />
          <EditText
              android:id="@+id/TUserName"
              android:layout_width="match_parent"
@@ -38,13 +40,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dp">
+
         <TextView
+            android:id="@+id/PasswordSignInTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
-            android:textAlignment="center"
             android:text="Password"
-            android:textSize="30dp"/>
+            android:textAlignment="center"
+            android:textSize="30dp" />
         <EditText
             android:id="@+id/TPassword"
             android:layout_width="match_parent"
