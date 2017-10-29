@@ -25,7 +25,7 @@ public class signUpActivity extends AppCompatActivity implements View.OnClickLis
     public static final String KEY_LASTNAME= "lastName";
     public static final String KEY_FIRSTNAME= "firstName";
     public static final String KEY_PHONE= "PhoneNumber";
-
+    public Toast toast=null;
 
     private EditText editTextUsername;
     private EditText editTextEmail;
@@ -67,13 +67,13 @@ public class signUpActivity extends AppCompatActivity implements View.OnClickLis
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(signUpActivity.this,response,Toast.LENGTH_LONG).show();
+                        toast.makeText(signUpActivity.this,response,Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(signUpActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                        toast.makeText(signUpActivity.this,error.toString(),Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override
