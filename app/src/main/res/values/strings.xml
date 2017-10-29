@@ -1,4 +1,61 @@
 <resources>
     <string name="app_name">BasicLabProject</string>
     <string name="BackgroundImagedescription">Background Image</string>
+
+
+    <string-array name="header_titles">
+        <item>ΑΚΙΝΗΤΑ</item>
+        <item>ΟΧΗΜΑΤΑ</item>
+        <item>ΟΙΚΙΑΚΑ/ΠΡΟΣΩΠΙΚΑ ΑΝΤΙΚΕΙΜΕΝΑ</item>
+        <item>ΑΘΛΗΤΙΚΑ ΕΙΔΗ / ΧΟΜΠΙ</item>
+        <item>ΥΠΟΛΟΓΙΣΤΕΣ ΚΑΙ ΗΛΕΚΤΡΟΝΙΚΑ</item>
+        <item>ΥΠΗΡΕΣΙΕΣ</item>
+    </string-array>
+    <string-array name="h1_items">
+        <item>Διαμερίσματα</item>
+        <item>Κατοικίες και Βίλλες</item>
+        <item>Εξοχικά και Τουριστικά Καταλύματα</item>
+        <item>Επαγγελματικού Χώροι</item>
+        <item>Οικόπεδα και Αγροτεμάχια</item>
+    </string-array>
+    <string-array name="h2_items">
+        <item>Αυτοκίνητα</item>
+        <item>Επαγγελματικά</item>
+        <item>Μοτοσυκλέτες</item>
+        <item>Αξεσουάρ</item>
+        <item>Σκάφη</item>
+        <item>Άλλα Οχήματα</item>
+    </string-array>
+    <string-array name="h3_items">
+        <item>Ηλεκτρικές Συσκευές</item>
+        <item>Έπιπλα</item>
+        <item>Παιδικά</item>
+        <item>Κηπευτικά και Εργαλεία</item>
+        <item>Ρούχα και Αξεσουάρ</item>
+        <item>Ρολόγια και Κοσμήματα</item>
+        <item>Διακόσμηση</item>
+    </string-array>
+    <string-array name="h4_items">
+        <item>Αθλητικά Είδη και Ποδήλατα</item>
+        <item>Κατοικίδια</item>
+        <item>Μουσική, Ταινίες και Βιβλία</item>
+        <item>Ταξιδιωτικός Εξοπλισμός</item>
+        <item>Τέχνη, Αντίκες και Συλλογές</item>
+        <item>Μουσικά Όργανα</item>
+    </string-array>
+    <string-array name="h5_items">
+        <item>Κινητά, Τηλεφωνία και Gadgets</item>
+        <item>Εικόνα και Ήχος</item>
+        <item>Η/Υ, Laptops και Tablets</item>
+        <item>Υλικό και περιφερειακά</item>
+        <item>Κονσόλες και Παιχνίδια</item>
+        <item>Άλλες ηλεκτρονικές συσκευές</item>
+    </string-array>
+    <string-array name="h6_items">
+        <item>Προσφορά Εργασίας</item>
+        <item>Ζήτηση Εργασίας</item>
+        <item>Εκπαίδευση</item>
+        <item>Επαγγελματικές Υπηρεσίες</item>
+        <item>Επαγγελματικός Εξοπλισμός</item>
+    </string-array>
 </resources>
