@@ -1,31 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#6C648D">
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ExpandableListView
-            android:id="@+id/productList"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:background="#ffffff" />
+        android:layout_height="match_parent"
+        android:background="#6C648D">
 
         <ImageView
             android:id="@+id/productImage"
             android:layout_width="250dp"
             android:layout_height="150dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/productList"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:background="#ffffff"
@@ -35,20 +20,19 @@
             android:id="@+id/uploadImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/productImage"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="50dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentRight="true"
             android:text="Upload Pic" />
 
-        <TextView
-            android:id="@+id/tVdescrOfProd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/productImage"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="Product Description :" />
+    <TextView
+        android:id="@+id/tVdescrOfProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/productImage"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:text="Product Description :"
+        android:textAppearance="@android:style/TextAppearance.Large.Inverse" />
 
         <EditText
             android:id="@+id/productDescription"
@@ -64,73 +48,36 @@
             android:hint="Description"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/tVprice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/productDescription"
-            android:layout_marginStart="65dp"
-            android:layout_marginTop="10dp"
-            android:text="Price :"
-            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/prodPrice"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tVprice"
-            android:layout_centerHorizontal="true"
             android:background="#ffffff"
             android:ems="10"
+            android:inputType="numberDecimal"
             android:hint="Price"
-            android:inputType="textPersonName"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_below="@+id/productDescription"
+            android:layout_marginTop="21dp" />
 
-        <TextView
-            android:id="@+id/tVeuro"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignBottom="@+id/prodPrice"
-            android:layout_toEndOf="@+id/prodPrice"
-            android:text="€"
-            android:textAlignment="center" />
+    <TextView
+        android:id="@+id/tVeuro"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/prodPrice"
+        android:layout_toEndOf="@+id/prodPrice"
+        android:text="€"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/prodPrice"
-            android:layout_marginTop="20dp"
-            android:layout_toStartOf="@+id/prodPrice"
-            android:text="Subcategory" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/checkBox"
-            android:layout_below="@+id/checkBox"
-            android:layout_marginTop="11dp"
-            android:text="Subcategory2" />
-
-        <CheckBox
-            android:id="@+id/checkBox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/checkBox2"
-            android:layout_below="@+id/checkBox2"
-            android:layout_marginTop="11dp"
-            android:text="Subcategory3" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/checkBox3"
+            android:layout_alignParentRight="true"
             android:layout_marginEnd="5dp"
-            android:layout_toEndOf="@+id/tVeuro"
+            android:layout_alignParentBottom="true"
             android:text="Submit" />
 
     </RelativeLayout>
-</LinearLayout>
