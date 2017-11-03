@@ -1,7 +1,9 @@
 package com.example.steve.basiclabproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class user_profil_screen extends AppCompatActivity {
@@ -23,5 +25,10 @@ TextView usernameTextView;
             }
         });
 
+    }
+
+    public void opensellActivity(View view){
+        Intent intent = new Intent(user_profil_screen.this,sellActivity.class);
+        startActivity(intent);
     }
 }
