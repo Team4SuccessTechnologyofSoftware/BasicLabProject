@@ -2,13 +2,17 @@ package com.example.steve.basiclabproject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ExpandableListView;
 
 public class Search extends AppCompatActivity {
 
+    ExpandableListView expandableListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.searchlayout);
+        setContentView(R.layout.activity_search);
+        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        ExpandableListViewAdapter adapter = new ExpandableListViewAdapter(Search.this);
+        expandableListView.setAdapter(adapter);
     }
 }
