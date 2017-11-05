@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#6C648D">
      <ExpandableListView
          android:id="@+id/expandableListView"
          android:layout_width="match_parent"
-         android:layout_height="match_parent"></ExpandableListView>
+         android:layout_height="match_parent"
+         ></ExpandableListView>
     </LinearLayout>
