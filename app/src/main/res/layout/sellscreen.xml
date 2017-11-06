@@ -10,18 +10,20 @@
             android:id="@+id/productImage"
             android:layout_width="250dp"
             android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/spinner"
             android:background="#ffffff"
             app:srcCompat="@android:drawable/picture_frame"
-            android:layout_below="@+id/spinner"
-            android:layout_alignParentStart="true" />
+            android:visibility="invisible" />
 
-        <Button
-            android:id="@+id/uploadImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Pic"
-            android:layout_below="@+id/spinner"
-            android:layout_alignEnd="@+id/spinner" />
+    <Button
+        android:id="@+id/uploadImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/spinner"
+        android:layout_below="@+id/spinner"
+        android:text="Upload Pic"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tVdescrOfProd"
@@ -31,34 +33,37 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="25dp"
         android:text="Product Description :"
-        android:textAppearance="@android:style/TextAppearance.Large.Inverse" />
+        android:textAppearance="@android:style/TextAppearance.Large.Inverse"
+        android:visibility="invisible" />
 
-        <EditText
-            android:id="@+id/productDescription"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/tVdescrOfProd"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:background="#ffffff"
-            android:ems="10"
-            android:hint="Description"
-            android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/productDescription"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tVdescrOfProd"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        android:visibility="invisible" />
 
 
-        <EditText
-            android:id="@+id/prodPrice"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:hint="Price"
-            android:textAlignment="center"
-            android:layout_below="@+id/productDescription"
-            android:layout_marginTop="21dp" />
+    <EditText
+        android:id="@+id/prodPrice"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/productDescription"
+        android:layout_marginTop="21dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tVeuro"
@@ -67,17 +72,19 @@
         android:layout_alignBottom="@+id/prodPrice"
         android:layout_toEndOf="@+id/prodPrice"
         android:text="€"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:visibility="invisible" />
 
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentBottom="true"
-            android:text="Submit" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="5dp"
+        android:text="Submit"
+        android:visibility="invisible" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -89,5 +96,26 @@
         android:dropDownWidth="500dp"
         android:tooltipText="Choose a category"
         android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/checkLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/prodPrice"
+        android:layout_marginTop="18dp"
+        android:layout_toStartOf="@+id/button3"
+        android:visibility="visible">
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/prodPrice"
+        android:layout_toEndOf="@+id/checkLayout"
+        android:text="location"
+        android:visibility="invisible" />
 
 </RelativeLayout>
