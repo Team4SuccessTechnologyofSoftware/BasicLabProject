@@ -59,6 +59,7 @@
             android:layout_alignBottom="@+id/buttonGroupView"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:onClick="Search"
             android:text="Search" />
 
     </RelativeLayout>
