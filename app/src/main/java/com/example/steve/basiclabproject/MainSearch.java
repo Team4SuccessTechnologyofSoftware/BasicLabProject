@@ -12,6 +12,9 @@ public class MainSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        expandableListView = (ExpandableListView)findViewById(R.id.expandableListView);
+        ExpandableListViewAdapter adapter = new ExpandableListViewAdapter(MainSearch.this);
+        expandableListView.setAdapter(adapter);
 
     }
 }
