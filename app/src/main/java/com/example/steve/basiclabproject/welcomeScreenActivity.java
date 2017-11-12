@@ -37,4 +37,8 @@ public class welcomeScreenActivity extends AppCompatActivity {
        startActivity(intent);
 
     }
+    public void Search(View view){
+        Intent intent= new Intent(welcomeScreenActivity.this,Search.class);
+        startActivity(intent);
+    }
 }

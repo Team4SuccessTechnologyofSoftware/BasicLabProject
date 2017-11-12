@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BasicLabProject</string>
     <string name="BackgroundImagedescription">Background Image</string>
+
     <string name="SpinnerTitle">Choose a category</string>
     <string name="Homes">Homes</string>
     <string name="Vehicles">Vehicles</string>
@@ -8,4 +9,5 @@
     <string name="Athletics">Athletics</string>
     <string name="Computers">Computers</string>
     <string name="Others">Others</string>
+
 </resources>
