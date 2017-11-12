@@ -29,6 +29,7 @@ TextView usernameTextView;
 
     public void opensellActivity(View view){
         Intent intent = new Intent(user_profil_screen.this,sellActivity.class);
+        intent.putExtra("usernamekey",usernameTextView.getText().toString());
         startActivity(intent);
     }
 }

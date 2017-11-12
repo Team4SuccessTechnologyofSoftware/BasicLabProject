@@ -25,7 +25,7 @@
         android:text="Upload Pic"
         android:visibility="invisible" />
 
-    <TextView
+    <EditText
         android:id="@+id/tVdescrOfProd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
