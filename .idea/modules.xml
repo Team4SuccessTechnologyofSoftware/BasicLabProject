@@ -6,10 +6,11 @@
       <module fileurl="file://$PROJECT_DIR$/BasicLabProject.0.iml" filepath="$PROJECT_DIR$/BasicLabProject.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/BasicLabProject.0.0.iml" filepath="$PROJECT_DIR$/BasicLabProject.0.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/BasicLabProject.0.1.iml" filepath="$PROJECT_DIR$/BasicLabProject.0.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BasicLabProject.0.1.0.iml" filepath="$PROJECT_DIR$/BasicLabProject.0.1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/BasicLabProject.1.iml" filepath="$PROJECT_DIR$/BasicLabProject.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/BasicLabProject.1.1.iml" filepath="$PROJECT_DIR$/BasicLabProject.1.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/BasicLabProject.1.2.iml" filepath="$PROJECT_DIR$/BasicLabProject.1.2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BasicLabProject.search.iml" filepath="$PROJECT_DIR$/BasicLabProject.search.iml" />
+
       <module fileurl="file://$PROJECT_DIR$/BasicLabProject_1_11_2017.iml" filepath="$PROJECT_DIR$/BasicLabProject_1_11_2017.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

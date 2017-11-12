@@ -1,5 +1,6 @@
 package com.example.steve.basiclabproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,16 +18,13 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignIn extends AppCompatActivity  implements View.OnClickListener {
-    //--dokimi gia branch--
 
-    private static final String REGISTER_URL = "https://team4success.000webhostapp.com/login_in.php";
+public class SignIn extends AppCompatActivity implements View.OnClickListener {
 
 
     public static final String KEY_USERNAME = "Username";
     public static final String KEY_PASSWORD = "Password";
-
-
+    private static final String REGISTER_URL = "https://team4success.000webhostapp.com/login_in.php";
     private EditText editTextUsername;
     private EditText editTextPassword;
 
@@ -40,17 +38,17 @@ public class SignIn extends AppCompatActivity  implements View.OnClickListener {
         setContentView(R.layout.sign_in_screen);
         editTextUsername = (EditText) findViewById(R.id.TUserName);
         editTextPassword = (EditText) findViewById(R.id.TPassword);
-        btn= (Button)findViewById(R.id.signinButton);
+        btn = (Button) findViewById(R.id.signinButton);
         btn.setOnClickListener(this);
     }
 
-    public void exit(View view){
+    public void exit(View view) {
 
-        btn2= (Button)findViewById(R.id.buttonBack);
+        btn2 = (Button) findViewById(R.id.buttonBack);
         finish();
     }
 
-    private void signInUser(){
+    private void signInUser() {
         final String username = editTextUsername.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
 
@@ -58,20 +56,26 @@ public class SignIn extends AppCompatActivity  implements View.OnClickListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(SignIn.this,response.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignIn.this, response.toString(), Toast.LENGTH_LONG).show();
+                        if (response.toString().endsWith("successfully")) {
+                            Intent intent = new Intent(SignIn.this, user_profil_screen.class);
+                            String useName = editTextUsername.getText().toString();
+                            intent.putExtra("usernamekey", useName);
+                            startActivity(intent);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SignIn.this,error.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignIn.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_USERNAME, username);
-                params.put(KEY_PASSWORD,password);
+                params.put(KEY_PASSWORD, password);
                 return params;
             }
 
@@ -83,10 +87,10 @@ public class SignIn extends AppCompatActivity  implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v == btn){
+        if (v == btn) {
             signInUser();
         }
     }
 
-    }
+}
 
