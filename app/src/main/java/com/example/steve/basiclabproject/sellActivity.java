@@ -34,11 +34,9 @@ import java.util.Map;
 
 import static com.example.steve.basiclabproject.R.styleable.MenuGroup;
 
-public class sellActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Button button;
+public class sellActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     String items[];
     String item;
-    String subcategory;
     ImageView productImage;
 Button uploadImageButton;
     TextView tVprodDescr;
@@ -48,6 +46,7 @@ EditText prodPrice;
     Button submit;
     Button location;
     String myKeyUsername;
+    String subcategory;
 
     public static final String KEY_USERNAME = "Username";
     public static final String KEY_PRODNAME= "ProductName";
@@ -95,6 +94,8 @@ EditText prodPrice;
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
         spinner.getMeasuredWidth();
+        submit = (Button) findViewById(R.id.submitButton);
+        submit.setOnClickListener(this);
     }
 
     @Override
@@ -118,7 +119,6 @@ runOnUiThread();
          edProdDescr = (EditText) findViewById(R.id.productDescription);
          prodPrice = (EditText) findViewById(R.id.prodPrice);
          tvEuro = (TextView) findViewById(R.id.tVeuro);
-         submit = (Button) findViewById(R.id.button3);
         location= (Button) findViewById(R.id.location);
 
         if(item == "Homes") {
@@ -456,15 +456,15 @@ runOnUiThread();
 
     }
 
-    /*
+
     private void uploadChance() {
         edProdDescr = (EditText) findViewById(R.id.productDescription);
         prodPrice = (EditText) findViewById(R.id.prodPrice);
         tVprodDescr = (EditText) findViewById(R.id.tVdescrOfProd);
         location = (Button) findViewById(R.id.location);
-        final String prodName = edProdDescr.getText().toString().trim();
+        final String prodName = tVprodDescr.getText().toString().trim();
         final String Price = prodPrice.getText().toString().trim();
-        final String prodDesc = tVprodDescr.getText().toString().trim();
+        final String prodDesc = edProdDescr.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
@@ -483,10 +483,11 @@ runOnUiThread();
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_USERNAME, myKeyUsername);
-                params.put(KEY_PRODNAME, prodDesc );
+                params.put(KEY_PRODNAME, prodName );
+                params.put(KEY_DESCR, prodDesc);
                 params.put(KEY_PRICE, Price);
                 params.put(KEY_CATEGORY, item);
-                // params.put(KEY_SUBCATEGORY, password);
+                params.put(KEY_SUBCATEGORY, subcategory);
                 // params.put(KEY_LOCATION, username);
                 // params.put(KEY_IMAGE, password);
                 return params;
@@ -498,6 +499,10 @@ runOnUiThread();
         requestQueue.add(stringRequest);
     }
 
-*/
 
+    @Override
+    public void onClick(View v) {
+        if (v == submit)
+            uploadChance();
+    }
 }
