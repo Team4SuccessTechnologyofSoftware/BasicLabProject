@@ -1,6 +1,15 @@
 package com.example.steve.basiclabproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+import android.media.Image;
+import android.os.Message;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -31,11 +40,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import android.os.Handler;
+import java.util.logging.LogRecord;
 
+import static android.widget.Toast.LENGTH_LONG;
 import static com.example.steve.basiclabproject.R.styleable.MenuGroup;
 
 public class sellActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     String items[];
+    Bitmap bitmap;
     String item;
     ImageView productImage;
 Button uploadImageButton;
@@ -47,6 +60,10 @@ EditText prodPrice;
     Button location;
     String myKeyUsername;
     String subcategory;
+    String imageFile;
+    Bitmap bit;
+    String fileMess;
+    private static final int REQUEST_CODE = 5;
 
     public static final String KEY_USERNAME = "Username";
     public static final String KEY_PRODNAME= "ProductName";
@@ -66,6 +83,9 @@ EditText prodPrice;
         if(extras == null)
             return;
         myKeyUsername = extras.getString("usernamekey");
+
+       // imageFile = extras.getString("ImageFileName");
+        //Toast.makeText(this,imageFile,Toast.LENGTH_SHORT).show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sellscreen);
@@ -95,7 +115,9 @@ EditText prodPrice;
         spinner.setAdapter(dataAdapter);
         spinner.getMeasuredWidth();
         submit = (Button) findViewById(R.id.submitButton);
+        uploadImageButton =(Button) findViewById(R.id.uploadImageButton);
         submit.setOnClickListener(this);
+        uploadImageButton.setOnClickListener(this);
     }
 
     @Override
@@ -104,7 +126,7 @@ EditText prodPrice;
             item = parent.getItemAtPosition(position).toString();
 
             // Showing selected spinner item
-            Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+            Toast.makeText(parent.getContext(), "Selected: " + item, LENGTH_LONG).show();
 
 runOnUiThread();
         }
@@ -114,7 +136,6 @@ runOnUiThread();
     private void runOnUiThread() {
         RelativeLayout lp = (RelativeLayout) findViewById(R.id.checkLayout);
          productImage = (ImageView) findViewById(R.id.productImage);
-         uploadImageButton =(Button) findViewById(R.id.uploadImageButton);
          tVprodDescr = (TextView) findViewById(R.id.tVdescrOfProd);
          edProdDescr = (EditText) findViewById(R.id.productDescription);
          prodPrice = (EditText) findViewById(R.id.prodPrice);
@@ -446,8 +467,6 @@ runOnUiThread();
             location.setVisibility(View.VISIBLE);
         }
 
-
-
     }
 
 
@@ -470,13 +489,13 @@ runOnUiThread();
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(sellActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(sellActivity.this, response.toString(), LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(sellActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(sellActivity.this, error.toString(), LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -499,10 +518,29 @@ runOnUiThread();
         requestQueue.add(stringRequest);
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        imageFile = intent.getStringExtra("fileNa");
+        if (imageFile != null) {
+            Toast.makeText(sellActivity.this, imageFile, Toast.LENGTH_SHORT).show();
+            bitmap = BitmapFactory.decodeFile(imageFile);
+            productImage.setImageBitmap(bitmap);
+        }
+    }
 
     @Override
     public void onClick(View v) {
         if (v == submit)
             uploadChance();
+        else if(v == uploadImageButton) {
+            Intent intent = new Intent(this, fileExplorer.class);
+                startActivity(intent);
+
+        }
+
     }
+
+
 }
+
