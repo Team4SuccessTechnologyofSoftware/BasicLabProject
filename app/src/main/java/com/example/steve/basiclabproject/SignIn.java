@@ -14,13 +14,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.steve.basiclabproject.databaseAPI.login;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class SignIn extends AppCompatActivity implements View.OnClickListener {
-
 
     public static final String KEY_USERNAME = "Username";
     public static final String KEY_PASSWORD = "Password";
@@ -30,17 +29,20 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn;
     private Button btn2;
-    //safd
+
+    private login Login =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_screen);
+        Login=new login();
         editTextUsername = (EditText) findViewById(R.id.TUserName);
         editTextPassword = (EditText) findViewById(R.id.TPassword);
         btn = (Button) findViewById(R.id.signinButton);
         btn.setOnClickListener(this);
     }
+
 
     public void exit(View view) {
 
@@ -48,47 +50,17 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
         finish();
     }
 
-    private void signInUser() {
-        final String username = editTextUsername.getText().toString().trim();
-        final String password = editTextPassword.getText().toString().trim();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(SignIn.this, response.toString(), Toast.LENGTH_LONG).show();
-                        if (response.toString().endsWith("successfully")) {
-                            Intent intent = new Intent(SignIn.this, user_profil_screen.class);
-                            String useName = editTextUsername.getText().toString();
-                            intent.putExtra("usernamekey", useName);
-                            startActivity(intent);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SignIn.this, error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put(KEY_USERNAME, username);
-                params.put(KEY_PASSWORD, password);
-                return params;
-            }
 
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
 
     @Override
     public void onClick(View v) {
+
         if (v == btn) {
-            signInUser();
+            final String username = editTextUsername.getText().toString().trim();
+            final String password = editTextPassword.getText().toString().trim();
+
+            Login.userLogin(username,password,this);
         }
     }
 
