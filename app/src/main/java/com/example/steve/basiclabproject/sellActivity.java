@@ -147,7 +147,7 @@ runOnUiThread();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
             final RadioButton apartement = new RadioButton(getApplicationContext());
-            apartement.setText("apartement");
+            apartement.setText("Apartement");
          apartement.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -156,7 +156,7 @@ runOnUiThread();
              }
          });
             final RadioButton residence = new RadioButton(getApplicationContext());
-            residence.setText("residence");
+            residence.setText("Residence");
             residence.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -191,7 +191,7 @@ runOnUiThread();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
             final RadioButton cars = new RadioButton(getApplicationContext());
-            cars.setText("cars");
+            cars.setText("Cars");
             cars.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -200,7 +200,7 @@ runOnUiThread();
                 }
             });
             final RadioButton motos = new RadioButton(getApplicationContext());
-            motos.setText("motorbikes");
+            motos.setText("Motorbikes");
             motos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -209,7 +209,7 @@ runOnUiThread();
                 }
             });
             final RadioButton bicycles = new RadioButton(getApplicationContext());
-            bicycles.setText("bicycles");
+            bicycles.setText("Bicycles");
             bicycles.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -244,7 +244,7 @@ runOnUiThread();
                 }
             });
             final RadioButton laptop = new RadioButton(getApplicationContext());
-            laptop.setText("laptop");
+            laptop.setText("Laptop");
             laptop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -353,7 +353,7 @@ runOnUiThread();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
             final RadioButton furnitures= new RadioButton(getApplicationContext());
-            furnitures.setText("furnitures");
+            furnitures.setText("Furnitures");
             furnitures.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -417,7 +417,7 @@ runOnUiThread();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
             final RadioButton women = new RadioButton(getApplicationContext());
-            women.setText("women");
+            women.setText("Women");
             women.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -426,7 +426,7 @@ runOnUiThread();
                 }
             });
             final RadioButton men = new RadioButton(getApplicationContext());
-            men.setText("men");
+            men.setText("Men");
             men.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -435,7 +435,7 @@ runOnUiThread();
                 }
             });
             final RadioButton girls = new RadioButton(getApplicationContext());
-            girls.setText("girls");
+            girls.setText("Girls");
             girls.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -444,7 +444,7 @@ runOnUiThread();
                 }
             });
             final RadioButton boys= new RadioButton(getApplicationContext());
-            boys.setText("boys");
+            boys.setText("Boys");
             boys.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
