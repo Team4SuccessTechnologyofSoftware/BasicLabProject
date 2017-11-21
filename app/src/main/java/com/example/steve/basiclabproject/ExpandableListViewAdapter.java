@@ -67,7 +67,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         TextView textView = new TextView(context);
         textView.setText(groupNames[i]);
         textView.setPadding(100,0,0,0);
-        textView.setTextColor(Color.BLUE);
+        textView.setTextColor(Color.WHITE);
         return textView;
     }
 
@@ -76,7 +76,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         final TextView textView = new TextView(context);
         textView.setText(childNames[i][i1]);
         textView.setPadding(100,0,0,0);
-        textView.setTextColor(Color.RED);
+        textView.setTextColor(Color.BLACK);
         textView.setTextSize(30);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
