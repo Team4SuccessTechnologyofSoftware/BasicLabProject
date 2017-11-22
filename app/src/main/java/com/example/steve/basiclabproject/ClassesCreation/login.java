@@ -1,21 +1,22 @@
-package com.example.steve.basiclabproject.databaseAPI;
+package com.example.steve.basiclabproject.ClassesCreation;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.steve.basiclabproject.SignIn;
-import com.example.steve.basiclabproject.user_profil_screen;
+        import android.app.Activity;
+        import android.content.Intent;
+        import android.widget.EditText;
+        import android.widget.Toast;
 
-import java.util.HashMap;
-import java.util.Map;
+        import com.android.volley.Request;
+        import com.android.volley.RequestQueue;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.StringRequest;
+        import com.android.volley.toolbox.Volley;
+        import com.example.steve.basiclabproject.SignIn;
+        import com.example.steve.basiclabproject.user_profil_screen;
+
+        import java.util.HashMap;
+        import java.util.Map;
 
 //
 
@@ -43,7 +44,7 @@ public class login {
                         Toast.makeText(loginActivity, response.toString(), Toast.LENGTH_LONG).show();
                         if (response.toString().endsWith("successfully")) {
                             Intent intent = new Intent(loginActivity, user_profil_screen.class);
-                           // String userName = editTextUsername.getText().toString();
+                            // String userName = editTextUsername.getText().toString();
                             intent.putExtra("usernamekey", userName);
                             loginActivity.startActivity(intent);
                         }
