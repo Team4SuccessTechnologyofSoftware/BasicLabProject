@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.steve.basiclabproject.databaseAPI.signUp;
+import com.example.steve.basiclabproject.ClassesCreation.signUp;
 
 public class signUpActivity extends AppCompatActivity implements View.OnClickListener {
 
