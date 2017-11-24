@@ -10,4 +10,8 @@
     <string name="Computers">Computers</string>
     <string name="Others">Others</string>
 
+    <string name="title_activity_set_location">setLocationActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>

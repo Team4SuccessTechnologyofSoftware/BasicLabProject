@@ -64,6 +64,8 @@ EditText prodPrice;
     Bitmap bit;
     String fileMess;
     private static final int REQUEST_CODE = 5;
+    String lacti;
+    String longi;
 
     public static final String KEY_USERNAME = "Username";
     public static final String KEY_PRODNAME= "ProductName";
@@ -83,6 +85,7 @@ EditText prodPrice;
         if(extras == null)
             return;
         myKeyUsername = extras.getString("usernamekey");
+
 
        // imageFile = extras.getString("ImageFileName");
         //Toast.makeText(this,imageFile,Toast.LENGTH_SHORT).show();
@@ -115,9 +118,11 @@ EditText prodPrice;
         spinner.setAdapter(dataAdapter);
         spinner.getMeasuredWidth();
         submit = (Button) findViewById(R.id.submitButton);
+        location = (Button) findViewById(R.id.location);
         uploadImageButton =(Button) findViewById(R.id.uploadImageButton);
         submit.setOnClickListener(this);
         uploadImageButton.setOnClickListener(this);
+        location.setOnClickListener(this);
     }
 
     @Override
@@ -527,6 +532,7 @@ runOnUiThread();
             bitmap = BitmapFactory.decodeFile(imageFile);
             productImage.setImageBitmap(bitmap);
         }
+
     }
 
     @Override
@@ -536,11 +542,16 @@ runOnUiThread();
         else if(v == uploadImageButton) {
             Intent intent = new Intent(this, fileExplorer.class);
                 startActivity(intent);
-
+        }
+        else if(v == location){
+            Intent intent = new Intent(this,setLocationActivity.class);
+            startActivity(intent);
         }
 
     }
 
 
-}
+    }
+
+
 
