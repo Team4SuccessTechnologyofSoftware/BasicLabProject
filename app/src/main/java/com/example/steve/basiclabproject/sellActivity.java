@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.media.Image;
+import android.os.CountDownTimer;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -124,7 +125,33 @@ EditText prodPrice;
         uploadImageButton.setOnClickListener(this);
         location.setOnClickListener(this);
     }
+    //creating back up button options ---lefteris-----------
+    private boolean didUserClickBackButton = false;
+    @Override
+    public void onBackPressed() {
+        if(!didUserClickBackButton) {
+            Toast.makeText(this, "If you want to return to home page Press Back again!", Toast.LENGTH_LONG).show();
+            didUserClickBackButton = true;
 
+        }else {
+            Intent intent = new Intent(sellActivity.this, welcomeScreenActivity.class);
+            startActivity(intent);
+        }
+        new CountDownTimer(5000,1000){
+
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                didUserClickBackButton = false;
+
+            }
+        }.start();
+
+    }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != 0) {
