@@ -14,10 +14,15 @@ import android.widget.Toast;
  */
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
-    String[] groupNames = {"ΟΧΗΜΑΤΑ","ΟΙΚΙΑΚΑ/ΠΡΟΣΩΠΙΚΑ ΑΝΤΙΚΕΙΜΕΝΑ","ΑΘΛΗΤΙΚΑ ΕΙΔΗ ","ΥΠΟΛΟΓΙΣΤΕΣ ΚΑΙ ΗΛΕΚΤΡΟΝΙΚΑ"};
-    String[] [] childNames = {{"Αυτοκίνητα","Επαγγελματικά","Μοτοσυκλέτες","Αξεσουάρ","Σκάφη"},{"Ηλεκτρικές Συσκευές","Έπιπλα","Παιδικά","Ρούχα και Αξεσουάρ","Ρολόγια και Κοσμήματα"}
-            ,{"Αθλητικά Είδη και Ποδήλατα","Ταινίες και Βιβλία","Ταξιδιωτικός Εξοπλισμός","Τέχνη, Αντίκες και Συλλογές","Μουσικά Όργανα"}
-            ,{"Κινητά, Τηλεφωνία και Gadgets","Εικόνα και Ήχος","Η/Υ, Laptops και Tablets","Κονσόλες και Παιχνίδια"}};
+    String[] groupNames = {"Homes","Vehicles","Computers ","Musical Organs","Personal Objects","Clothes"};
+    String[] [] childNames = {
+            {"Apartement","Residence","Country House"}
+            ,{"Cars","Motorbikes","Bicycles"}
+            ,{"PC","laptop","Computer/Laptop parts","Mobile Phones"}
+            ,{"Guitars","Basses","Drums","Pneumatics","Classical Organs"}
+            ,{"Furnitures","Home Devices","Jewells","Design","Hobbies"}
+            ,{"Women","Men","Girls","Boys"}
+    };
     Context context;
     public ExpandableListViewAdapter(Context context) {
         this.context = context;
@@ -62,7 +67,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         TextView textView = new TextView(context);
         textView.setText(groupNames[i]);
         textView.setPadding(100,0,0,0);
-        textView.setTextColor(Color.BLUE);
+        textView.setTextColor(Color.WHITE);
         return textView;
     }
 
@@ -71,7 +76,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         final TextView textView = new TextView(context);
         textView.setText(childNames[i][i1]);
         textView.setPadding(100,0,0,0);
-        textView.setTextColor(Color.RED);
+        textView.setTextColor(Color.BLACK);
         textView.setTextSize(30);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
