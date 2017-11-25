@@ -544,7 +544,6 @@ runOnUiThread();
                 startActivity(intent);
         }
         else if(v == location){
-            //start for result activity
             Intent intent = new Intent(this,setLocationActivity.class);
             startActivityForResult(intent,5);
         }
