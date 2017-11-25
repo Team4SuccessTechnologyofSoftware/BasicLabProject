@@ -134,6 +134,7 @@ EditText prodPrice;
             didUserClickBackButton = true;
 
         }else {
+            finish();
             Intent intent = new Intent(sellActivity.this, welcomeScreenActivity.class);
             startActivity(intent);
         }
