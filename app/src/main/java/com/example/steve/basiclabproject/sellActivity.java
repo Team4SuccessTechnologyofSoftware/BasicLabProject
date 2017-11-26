@@ -75,6 +75,8 @@ EditText prodPrice;
     public static final String KEY_CATEGORY= "Category";
     public static final String KEY_SUBCATEGORY = "subCategory";
     public static final String KEY_LOCATION = "Location";
+    public static final String KEY_LACTITUDE="Lactitude";
+    public static final String KEY_LONGTITUDE="Longtitude";
    // public static final String KEY_IMAGE = "Image";
     private static final String REGISTER_URL = "https://team4success.000webhostapp.com/uploadChance.php";
 
@@ -540,8 +542,8 @@ runOnUiThread();
                 params.put(KEY_PRICE, Price);
                 params.put(KEY_CATEGORY, item);
                 params.put(KEY_SUBCATEGORY, subcategory);
-                // params.put(KEY_LOCATION, username);
-                // params.put(KEY_IMAGE, password);
+                params.put(KEY_LACTITUDE,lacti);
+                params.put(KEY_LONGTITUDE,longi);
                 return params;
             }
 
