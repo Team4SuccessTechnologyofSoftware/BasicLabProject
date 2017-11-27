@@ -7,13 +7,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.media.Image;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,12 +41,25 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import android.os.Handler;
 import java.util.logging.LogRecord;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static com.example.steve.basiclabproject.R.styleable.MenuGroup;
@@ -565,19 +582,22 @@ runOnUiThread();
 
     }
 
+    ///////////
     @Override
     public void onClick(View v) {
-        if (v == submit)
-            uploadChance();
+        if (v == submit){
+            Toast.makeText(getApplicationContext(),"HEy",Toast.LENGTH_SHORT).show();
+            ImageUploadToServerFunction();
+        }
         else if(v == uploadImageButton) {
-            Intent intent = new Intent(this, fileExplorer.class);
-                startActivity(intent);
+            Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(pickPhoto, 1);
         }
-        else if(v == location){
-            Intent intent = new Intent(this,setLocationActivity.class);
-            startActivityForResult(intent,5);
+        else if(v == location) {
+            Intent intent = new Intent(this, setLocationActivity.class);
+            startActivityForResult(intent, 5);
         }
-
     }
 
     @Override
@@ -591,12 +611,184 @@ runOnUiThread();
             Toast.makeText(sellActivity.this,lacti+"\n"+longi,Toast.LENGTH_LONG).show();
             //tVprodDescr.setText(lacti+"\n"+longi);
 
-        }
-
-
-
+        }else if (requestCode==1){
+            if(resultCode == RESULT_OK){
+                Uri tweet_image_uri = data.getData();
+                Uri imageUri = data.getData();
+                try {
+                    bitmap= MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    productImage.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }}
     }
 
+
+    boolean check = true;
+
+    ///////////////////////////////////////
+
+    public void ImageUploadToServerFunction(){
+
+        ByteArrayOutputStream byteArrayOutputStreamObject ;
+
+        byteArrayOutputStreamObject = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStreamObject);
+
+        byte[] byteArrayVar = byteArrayOutputStreamObject.toByteArray();
+
+        final String ConvertImage = Base64.encodeToString(byteArrayVar, Base64.DEFAULT);
+
+        class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
+
+            @Override
+            protected void onPreExecute() {
+
+                super.onPreExecute();
+
+//                progressDialog = ProgressDialog.show(MainActivity.this,"Image is Uploading","Please Wait",false,false);
+            }
+
+            @Override
+            protected void onPostExecute(String string1) {
+
+                super.onPostExecute(string1);
+
+                // Dismiss the progress dialog after done uploading.
+//                progressDialog.dismiss();
+
+                // Printing uploading success message coming from server on android app.
+                Toast.makeText(getApplicationContext(),"The image is been uploading, Please wait",Toast.LENGTH_LONG).show();
+
+                // Setting image as transparent after done uploading.
+//                imageView.setImageResource(android.R.color.transparent);
+
+
+            }
+
+            String ImageName = "image_name" ;
+
+            String ImagePath = "image_path" ;
+
+            String ServerUploadPath ="https://team4success.000webhostapp.com/img_upload_to_server.php" ;
+
+
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+                ImageProcessClass imageProcessClass = new ImageProcessClass();
+
+                HashMap<String,String> HashMapParams = new HashMap<String,String>();
+
+                HashMapParams.put(ImageName, "image");
+
+                HashMapParams.put(ImagePath, ConvertImage);
+
+                String FinalData = imageProcessClass.ImageHttpRequest("https://team4success.000webhostapp.com/img_upload_to_server.php", HashMapParams);
+
+                return FinalData;
+            }
+        }
+        AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass();
+
+        AsyncTaskUploadClassOBJ.execute();
+    }
+
+    public class ImageProcessClass{
+
+        public String ImageHttpRequest(String requestURL,HashMap<String, String> PData) {
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            try {
+                URL url;
+                HttpURLConnection httpURLConnectionObject ;
+                OutputStream OutPutStream;
+                BufferedWriter bufferedWriterObject ;
+                BufferedReader bufferedReaderObject ;
+                int RC ;
+
+                url = new URL(requestURL);
+
+                httpURLConnectionObject = (HttpURLConnection) url.openConnection();
+
+                httpURLConnectionObject.setReadTimeout(19000);
+
+                httpURLConnectionObject.setConnectTimeout(19000);
+
+                httpURLConnectionObject.setRequestMethod("POST");
+
+                httpURLConnectionObject.setDoInput(true);
+
+                httpURLConnectionObject.setDoOutput(true);
+
+                OutPutStream = httpURLConnectionObject.getOutputStream();
+
+                bufferedWriterObject = new BufferedWriter(
+
+                        new OutputStreamWriter(OutPutStream, "UTF-8"));
+
+                bufferedWriterObject.write(bufferedWriterDataFN(PData));
+
+                bufferedWriterObject.flush();
+
+                bufferedWriterObject.close();
+
+                OutPutStream.close();
+
+                RC = httpURLConnectionObject.getResponseCode();
+
+                if (RC == HttpsURLConnection.HTTP_OK) {
+                    Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
+                    bufferedReaderObject = new BufferedReader(new InputStreamReader(httpURLConnectionObject.getInputStream()));
+
+                    stringBuilder = new StringBuilder();
+
+                    String RC2;
+
+                    while ((RC2 = bufferedReaderObject.readLine()) != null){
+
+                        stringBuilder.append(RC2);
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),"Not OK",Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Exception",Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+            return stringBuilder.toString();
+        }
+
+        private String bufferedWriterDataFN(HashMap<String, String> HashMapParams) throws UnsupportedEncodingException {
+
+            StringBuilder stringBuilderObject;
+
+            stringBuilderObject = new StringBuilder();
+
+            for (Map.Entry<String, String> KEY : HashMapParams.entrySet()) {
+
+                if (check)
+
+                    check = false;
+                else
+                    stringBuilderObject.append("&");
+
+                stringBuilderObject.append(URLEncoder.encode(KEY.getKey(), "UTF-8"));
+
+                stringBuilderObject.append("=");
+
+                stringBuilderObject.append(URLEncoder.encode(KEY.getValue(), "UTF-8"));
+            }
+
+            return stringBuilderObject.toString();
+        }
+
+    }
 
 
 
