@@ -32,4 +32,10 @@ TextView usernameTextView;
         intent.putExtra("usernamekey",usernameTextView.getText().toString());
         startActivity(intent);
     }
+
+    public void openbuyActivity(View view){
+        Intent intent = new Intent(user_profil_screen.this,buyActivity.class);
+        intent.putExtra("usernamekey",usernameTextView.getText().toString());
+        startActivity(intent);
+    }
 }
