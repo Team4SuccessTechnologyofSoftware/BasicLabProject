@@ -2,7 +2,9 @@ package com.example.steve.basiclabproject.ClassesCreation;
 
 
         import android.app.Activity;
+        import android.content.Context;
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.widget.EditText;
         import android.widget.Toast;
 
@@ -25,6 +27,8 @@ public class login {
     public static final String KEY_USERNAME = "Username";
     public static final String KEY_PASSWORD = "Password";
     private static final String REGISTER_URL = "https://team4success.000webhostapp.com/login_in.php";
+    private SharedPreferences sharedPreferences=null;
+    private SharedPreferences.Editor editor=null;
 
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -34,18 +38,21 @@ public class login {
 
     }
 
-    public void userLogin(final String  userName,final String passWord,final Activity loginActivity){
-
+    public void userLogin(final String  userName, final String passWord, final Activity loginActivity){
+        sharedPreferences = loginActivity.getSharedPreferences("sellApp",Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(loginActivity, response.toString(), Toast.LENGTH_LONG).show();
-                        if (response.toString().endsWith("successfully")) {
+                        Toast.makeText(loginActivity,response.toString(), Toast.LENGTH_LONG).show();
+                        if (!response.toString().isEmpty() || !response.toString().contains("error")) {
                             Intent intent = new Intent(loginActivity, user_profil_screen.class);
                             // String userName = editTextUsername.getText().toString();
-                            intent.putExtra("usernamekey", userName);
+                            editor.putString("userID",response.toString());
+                            editor.commit();
+                            intent.putExtra("usernamekey", response.toString());
                             loginActivity.startActivity(intent);
                         }
                     }
