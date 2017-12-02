@@ -3,15 +3,25 @@ package com.example.steve.basiclabproject;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,6 +36,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.widget.Toast.LENGTH_LONG;
+import static java.lang.Double.valueOf;
+
 public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -38,7 +56,10 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     private Marker currentLocationMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
     int PROXIMITY_RADIUS = 10000;
-
+    String[] lact;
+    String[] longs;
+    Double[] dlact;
+    Double[] dlong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +73,8 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
     }
 
     @Override
@@ -91,6 +114,61 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        //volley lactitude
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/downloadChanceLactitude.php",
+                new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(String response) {
+                        lact = response.split(" ");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                       // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+        //volley longtitude
+        StringRequest stringRequest1 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/downloadChancelongtitude.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                    longs = response.split(" ");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue1 = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest1);
+
         mMap = googleMap;
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
@@ -99,6 +177,12 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
             mMap.setMyLocationEnabled(true);
 
         }
+        /*
+for(int i=0;i<lact.length;i++) {
+    MarkerOptions marker = new MarkerOptions().position(new LatLng(Double.valueOf(lact[i]), Double.valueOf(longs[i]))).title("New Marker").snippet("new snippet");
+    marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+    googleMap.addMarker(marker);
+}*/
     }
 
     protected synchronized void buildGoogleApiClient()
@@ -183,4 +267,6 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
 }

@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,25 +38,40 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import android.os.Handler;
+
 import java.util.logging.LogRecord;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static com.example.steve.basiclabproject.R.styleable.MenuGroup;
 
 public class sellActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+    public static final String KEY_USERNAME = "Username";
+    public static final String KEY_PRODNAME = "ProductName";
+    public static final String KEY_PRICE = "Price";
+    public static final String KEY_DESCR = "ProductDescription";
+    public static final String KEY_CATEGORY = "Category";
+    public static final String KEY_SUBCATEGORY = "subCategory";
+    public static final String KEY_LOCATION = "Location";
+    public static final String KEY_LACTITUDE = "Lactitude";
+    public static final String KEY_LONGTITUDE = "Longtitude";
+    public static final String KEY_IMAGE = "imageFile";
+    private static final int REQUEST_CODE = 5;
+    private static final String REGISTER_URL = "https://team4success.000webhostapp.com/uploadChance.php";
     String items[];
     Bitmap bitmap;
     String item;
     ImageView productImage;
-Button uploadImageButton;
+    Button uploadImageButton;
     TextView tVprodDescr;
     EditText edProdDescr;
-EditText prodPrice;
+    EditText prodPrice;
     TextView tvEuro;
     Button submit;
     Button location;
@@ -64,33 +80,36 @@ EditText prodPrice;
     String imageFile;
     Bitmap bit;
     String fileMess;
-    private static final int REQUEST_CODE = 5;
     String lacti;
     String longi;
+    String file;
+    //creating back up button options ---lefteris-----------
+    private boolean didUserClickBackButton = false;
 
-    public static final String KEY_USERNAME = "Username";
-    public static final String KEY_PRODNAME= "ProductName";
-    public static final String KEY_PRICE = "Price";
-    public static final String KEY_DESCR = "ProductDescription";
-    public static final String KEY_CATEGORY= "Category";
-    public static final String KEY_SUBCATEGORY = "subCategory";
-    public static final String KEY_LOCATION = "Location";
-    public static final String KEY_LACTITUDE="Lactitude";
-    public static final String KEY_LONGTITUDE="Longtitude";
-   // public static final String KEY_IMAGE = "Image";
-    private static final String REGISTER_URL = "https://team4success.000webhostapp.com/uploadChance.php";
-
+    public static String BitmapToString(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            String temp = Base64.encodeToString(b, Base64.DEFAULT);
+            return temp;
+        } catch (NullPointerException e) {
+            return null;
+        } catch (OutOfMemoryError e) {
+            return null;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Bundle extras= getIntent().getExtras();
-        if(extras == null)
+        Bundle extras = getIntent().getExtras();
+        if (extras == null)
             return;
         myKeyUsername = extras.getString("usernamekey");
 
 
-       // imageFile = extras.getString("ImageFileName");
+        // imageFile = extras.getString("ImageFileName");
         //Toast.makeText(this,imageFile,Toast.LENGTH_SHORT).show();
 
         super.onCreate(savedInstanceState);
@@ -122,25 +141,24 @@ EditText prodPrice;
         spinner.getMeasuredWidth();
         submit = (Button) findViewById(R.id.submitButton);
         location = (Button) findViewById(R.id.location);
-        uploadImageButton =(Button) findViewById(R.id.uploadImageButton);
+        uploadImageButton = (Button) findViewById(R.id.uploadImageButton);
         submit.setOnClickListener(this);
         uploadImageButton.setOnClickListener(this);
         location.setOnClickListener(this);
     }
-    //creating back up button options ---lefteris-----------
-    private boolean didUserClickBackButton = false;
+
     @Override
     public void onBackPressed() {
-        if(!didUserClickBackButton) {
+        if (!didUserClickBackButton) {
             Toast.makeText(this, "If you want to return to home page Press Back again!", Toast.LENGTH_LONG).show();
             didUserClickBackButton = true;
 
-        }else {
+        } else {
             finish();
             Intent intent = new Intent(sellActivity.this, welcomeScreenActivity.class);
             startActivity(intent);
         }
-        new CountDownTimer(5000,1000){
+        new CountDownTimer(5000, 1000) {
 
             @Override
             public void onTick(long l) {
@@ -155,6 +173,7 @@ EditText prodPrice;
         }.start();
 
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != 0) {
@@ -163,40 +182,39 @@ EditText prodPrice;
             // Showing selected spinner item
             Toast.makeText(parent.getContext(), "Selected: " + item, LENGTH_LONG).show();
 
-runOnUiThread();
+            runOnUiThread();
         }
     }
 
-
     private void runOnUiThread() {
         RelativeLayout lp = (RelativeLayout) findViewById(R.id.checkLayout);
-         productImage = (ImageView) findViewById(R.id.productImage);
-         tVprodDescr = (TextView) findViewById(R.id.tVdescrOfProd);
-         edProdDescr = (EditText) findViewById(R.id.productDescription);
-         prodPrice = (EditText) findViewById(R.id.prodPrice);
-         tvEuro = (TextView) findViewById(R.id.tVeuro);
-        location= (Button) findViewById(R.id.location);
+        productImage = (ImageView) findViewById(R.id.productImage);
+        tVprodDescr = (TextView) findViewById(R.id.tVdescrOfProd);
+        edProdDescr = (EditText) findViewById(R.id.productDescription);
+        prodPrice = (EditText) findViewById(R.id.prodPrice);
+        tvEuro = (TextView) findViewById(R.id.tVeuro);
+        location = (Button) findViewById(R.id.location);
 
-        if(item == "Homes") {
+        if (item == "Homes") {
             lp.removeAllViews();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
             final RadioButton apartement = new RadioButton(getApplicationContext());
             apartement.setText("apartement");
-         apartement.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 subcategory = apartement.getText().toString();
-                 Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
-             }
-         });
+            apartement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    subcategory = apartement.getText().toString();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
+                }
+            });
             final RadioButton residence = new RadioButton(getApplicationContext());
             residence.setText("residence");
             residence.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = residence.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             RadioButton country = new RadioButton(getApplicationContext());
@@ -205,7 +223,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = residence.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             gp.addView(apartement);
@@ -220,8 +238,7 @@ runOnUiThread();
             tvEuro.setVisibility(View.VISIBLE);
             submit.setVisibility(View.VISIBLE);
             location.setVisibility(View.VISIBLE);
-        }
-        else if(item == "Vehicles"){
+        } else if (item == "Vehicles") {
             lp.removeAllViews();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
@@ -231,7 +248,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = cars.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton motos = new RadioButton(getApplicationContext());
@@ -240,7 +257,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = motos.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton bicycles = new RadioButton(getApplicationContext());
@@ -249,7 +266,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     bicycles.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             gp.addView(cars);
@@ -264,8 +281,7 @@ runOnUiThread();
             tvEuro.setVisibility(View.VISIBLE);
             submit.setVisibility(View.VISIBLE);
             location.setVisibility(View.VISIBLE);
-        }
-        else if(item == "Computers"){
+        } else if (item == "Computers") {
             lp.removeAllViews();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
@@ -275,7 +291,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = pc.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton laptop = new RadioButton(getApplicationContext());
@@ -284,7 +300,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = laptop.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton parts = new RadioButton(getApplicationContext());
@@ -292,8 +308,8 @@ runOnUiThread();
             parts.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   subcategory = parts.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    subcategory = parts.getText().toString();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton mobile = new RadioButton(getApplicationContext());
@@ -302,7 +318,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = mobile.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             gp.addView(pc);
@@ -318,8 +334,7 @@ runOnUiThread();
             tvEuro.setVisibility(View.VISIBLE);
             submit.setVisibility(View.VISIBLE);
             location.setVisibility(View.VISIBLE);
-        }
-        else if(item == "Musical Organs"){
+        } else if (item == "Musical Organs") {
             lp.removeAllViews();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
@@ -329,7 +344,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = guitars.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton basses = new RadioButton(getApplicationContext());
@@ -338,25 +353,25 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = basses.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
-            final RadioButton drums= new RadioButton(getApplicationContext());
+            final RadioButton drums = new RadioButton(getApplicationContext());
             drums.setText("Drums");
             drums.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = drums.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
-            final RadioButton pneumatics= new RadioButton(getApplicationContext());
+            final RadioButton pneumatics = new RadioButton(getApplicationContext());
             pneumatics.setText("Pneumatics");
             pneumatics.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = pneumatics.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton classicals = new RadioButton(getApplicationContext());
@@ -365,7 +380,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = classicals.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             gp.addView(guitars);
@@ -382,54 +397,53 @@ runOnUiThread();
             tvEuro.setVisibility(View.VISIBLE);
             submit.setVisibility(View.VISIBLE);
             location.setVisibility(View.VISIBLE);
-        }
-        else if(item == "Personal Objects"){
+        } else if (item == "Personal Objects") {
             lp.removeAllViews();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
-            final RadioButton furnitures= new RadioButton(getApplicationContext());
+            final RadioButton furnitures = new RadioButton(getApplicationContext());
             furnitures.setText("furnitures");
             furnitures.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = furnitures.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
-            final RadioButton homeDev= new RadioButton(getApplicationContext());
+            final RadioButton homeDev = new RadioButton(getApplicationContext());
             homeDev.setText("Home Devices");
             homeDev.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = homeDev.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
-            final RadioButton jewellery= new RadioButton(getApplicationContext());
+            final RadioButton jewellery = new RadioButton(getApplicationContext());
             jewellery.setText("Jewells");
             jewellery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = jewellery.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
-            final RadioButton design= new RadioButton(getApplicationContext());
+            final RadioButton design = new RadioButton(getApplicationContext());
             design.setText("Design");
             design.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = design.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
-            final RadioButton hobbys= new RadioButton(getApplicationContext());
+            final RadioButton hobbys = new RadioButton(getApplicationContext());
             hobbys.setText("Hobbies");
             hobbys.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = hobbys.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             gp.addView(furnitures);
@@ -446,8 +460,7 @@ runOnUiThread();
             tvEuro.setVisibility(View.VISIBLE);
             submit.setVisibility(View.VISIBLE);
             location.setVisibility(View.VISIBLE);
-        }
-        else if(item == "Clothes"){
+        } else if (item == "Clothes") {
             lp.removeAllViews();
             RadioGroup gp = new RadioGroup(getApplicationContext());
             gp.setOrientation(LinearLayout.VERTICAL);
@@ -457,7 +470,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = women.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton men = new RadioButton(getApplicationContext());
@@ -466,7 +479,7 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = men.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             final RadioButton girls = new RadioButton(getApplicationContext());
@@ -475,16 +488,16 @@ runOnUiThread();
                 @Override
                 public void onClick(View v) {
                     subcategory = girls.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
-            final RadioButton boys= new RadioButton(getApplicationContext());
+            final RadioButton boys = new RadioButton(getApplicationContext());
             boys.setText("boys");
             boys.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     subcategory = boys.getText().toString();
-                    Toast.makeText(sellActivity.this, subcategory,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(sellActivity.this, subcategory, Toast.LENGTH_SHORT).show();
                 }
             });
             gp.addView(women);
@@ -504,12 +517,10 @@ runOnUiThread();
 
     }
 
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
 
     private void uploadChance() {
         edProdDescr = (EditText) findViewById(R.id.productDescription);
@@ -519,6 +530,7 @@ runOnUiThread();
         final String prodName = tVprodDescr.getText().toString().trim();
         final String Price = prodPrice.getText().toString().trim();
         final String prodDesc = edProdDescr.getText().toString().trim();
+        file = BitmapToString(bitmap);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
@@ -531,19 +543,21 @@ runOnUiThread();
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(sellActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
                     }
                 }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_USERNAME, myKeyUsername);
-                params.put(KEY_PRODNAME, prodName );
+                params.put(KEY_PRODNAME, prodName);
                 params.put(KEY_DESCR, prodDesc);
                 params.put(KEY_PRICE, Price);
                 params.put(KEY_CATEGORY, item);
                 params.put(KEY_SUBCATEGORY, subcategory);
-                params.put(KEY_LACTITUDE,lacti);
-                params.put(KEY_LONGTITUDE,longi);
+                params.put(KEY_LACTITUDE, lacti);
+                params.put(KEY_LONGTITUDE, longi);
+                params.put(KEY_IMAGE, file);
                 return params;
             }
 
@@ -569,36 +583,29 @@ runOnUiThread();
     public void onClick(View v) {
         if (v == submit)
             uploadChance();
-        else if(v == uploadImageButton) {
+        else if (v == uploadImageButton) {
             Intent intent = new Intent(this, fileExplorer.class);
-                startActivity(intent);
-        }
-        else if(v == location){
-            Intent intent = new Intent(this,setLocationActivity.class);
-            startActivityForResult(intent,5);
+            startActivity(intent);
+        } else if (v == location) {
+            Intent intent = new Intent(this, setLocationActivity.class);
+            startActivityForResult(intent, 5);
         }
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 5
-        if(requestCode == 5){
-            lacti=  data.getExtras().getString("lact");
+        if (requestCode == 5) {
+            lacti = data.getExtras().getString("lact");
             longi = data.getExtras().getString("long");
-            Toast.makeText(sellActivity.this,lacti+"\n"+longi,Toast.LENGTH_LONG).show();
-            //tVprodDescr.setText(lacti+"\n"+longi);
+            Toast.makeText(sellActivity.this, lacti + "\n" + longi, Toast.LENGTH_LONG).show();
 
         }
 
 
-
     }
-
-
-
 
 
 }
