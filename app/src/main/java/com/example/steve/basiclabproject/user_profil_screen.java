@@ -38,4 +38,9 @@ TextView usernameTextView;
         intent.putExtra("usernamekey",usernameTextView.getText().toString());
         startActivity(intent);
     }
+
+    public void openAdvertisemensActivity(View view) {
+        Intent intent = new Intent(user_profil_screen.this,advertisementsActivity.class);
+        startActivity(intent);
+    }
 }
