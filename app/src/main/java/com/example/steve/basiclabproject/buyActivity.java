@@ -36,9 +36,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.widget.Toast.LENGTH_LONG;
@@ -56,10 +58,10 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     private Marker currentLocationMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
     int PROXIMITY_RADIUS = 10000;
-    String[] lact;
-    String[] longs;
-    Double[] dlact;
-    Double[] dlong;
+    List lact;
+    List longs;
+    List dlact = new ArrayList<Double>();
+    List dlong = new ArrayList<Double>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,6 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
     }
 
@@ -115,20 +116,38 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //volley lactitude
+
+
+        mMap = googleMap;
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
+            buildGoogleApiClient();
+            mMap.setMyLocationEnabled(true);
+
+        }
+
+//volley lactitude
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/downloadChanceLactitude.php",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(String response) {
-                        lact = response.split(" ");
+                        Double d = 0.00;
+                        lact = new ArrayList(Arrays.asList(response.split(" ")));
+                        for (int i = 0; i < lact.size(); i++) {
+                            if (!lact.get(i).toString().isEmpty()) {
+                                d = Double.parseDouble((String) lact.get(i));
+                                dlact.add(d);
+                            }
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                       // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
                         error.printStackTrace();
                     }
                 }) {
@@ -148,7 +167,23 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                    longs = response.split(" ");
+                        longs = new ArrayList(Arrays.asList(response.split(" ")));
+                        Object d=0.00;
+                        for (int i = 0; i < longs.size(); i++) {
+                            if (!longs.get(i).toString().isEmpty()) {
+                                d = Double.parseDouble((String) longs.get(i));
+                                dlong.add(d);
+                            }
+                        }
+
+                        for(int i=0;i<dlact.size();i++) {
+                            if (!(dlact.get(i).toString().isEmpty()) && !(dlong.get(i).toString().isEmpty())) {
+                                MarkerOptions marker = new MarkerOptions().position(new LatLng((Double) dlact.get(i), (Double) dlong.get(i))).title("New Marker").snippet("new snippet");
+                                marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                                googleMap.addMarker(marker);
+                            }
+
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -168,22 +203,8 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
 
         RequestQueue requestQueue1 = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest1);
-
-        mMap = googleMap;
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-        {
-            buildGoogleApiClient();
-            mMap.setMyLocationEnabled(true);
-
         }
-        /*
-for(int i=0;i<lact.length;i++) {
-    MarkerOptions marker = new MarkerOptions().position(new LatLng(Double.valueOf(lact[i]), Double.valueOf(longs[i]))).title("New Marker").snippet("new snippet");
-    marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-    googleMap.addMarker(marker);
-}*/
-    }
+
 
     protected synchronized void buildGoogleApiClient()
     {
