@@ -55,13 +55,13 @@
         <activity
             android:name=".setLocationActivity"
             android:label="@string/title_activity_set_location" />
-
         <activity
             android:name=".advertisementsActivity"
             android:label="@string/title_activity_set_location" />
         <activity
             android:name=".buyActivity"
-            android:label="@string/title_activity_buy"></activity>
+            android:label="@string/title_activity_buy" />
+        <activity android:name=".bargain"></activity>
     </application>
 
 </manifest>

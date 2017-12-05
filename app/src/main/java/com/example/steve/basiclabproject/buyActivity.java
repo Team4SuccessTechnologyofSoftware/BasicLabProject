@@ -1,6 +1,7 @@
 package com.example.steve.basiclabproject;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -49,7 +50,7 @@ import static java.lang.Double.valueOf;
 public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     private GoogleApiClient client;
@@ -130,6 +131,7 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
             mMap.setMyLocationEnabled(true);
 
         }
+        googleMap.setOnInfoWindowClickListener(this);
 
 //volley lactitude
 
@@ -213,7 +215,7 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(String response) {
-                        resp=new ArrayList(Arrays.asList(response.split(" ")));
+                        resp=new ArrayList(Arrays.asList(response.split("::")));
                     }
                 },
                 new Response.ErrorListener() {
@@ -348,4 +350,15 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     }
 
 
+    @Override
+
+    public void onInfoWindowClick(Marker marker) {
+        Intent intent = new Intent(this, bargain.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }
