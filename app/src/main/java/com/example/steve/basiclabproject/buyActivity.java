@@ -62,6 +62,10 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     List longs;
     List dlact = new ArrayList<Double>();
     List dlong = new ArrayList<Double>();
+    List prodName;
+    List resp;
+    List respIm;
+    List markers =new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,14 +179,12 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
                                 dlong.add(d);
                             }
                         }
-
                         for(int i=0;i<dlact.size();i++) {
                             if (!(dlact.get(i).toString().isEmpty()) && !(dlong.get(i).toString().isEmpty())) {
-                                MarkerOptions marker = new MarkerOptions().position(new LatLng((Double) dlact.get(i), (Double) dlong.get(i))).title("New Marker").snippet("new snippet");
+                                MarkerOptions marker = new MarkerOptions().position(new LatLng((Double) dlact.get(i), (Double) dlong.get(i))).title("Image here...").snippet("Title here...");
                                 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                                 googleMap.addMarker(marker);
                             }
-
                         }
                     }
                 },
@@ -203,6 +205,62 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
 
         RequestQueue requestQueue1 = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest1);
+
+
+        //volley productName
+        StringRequest stringRequest2 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/prodTitle.php",
+                new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(String response) {
+                        resp=new ArrayList(Arrays.asList(response.split(" ")));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
+        requestQueue2.add(stringRequest2);
+
+        //volley photosDownload
+        StringRequest stringRequest3 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/downloadPhoto.php",
+                new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(String response) {
+                        respIm = new ArrayList(Arrays.asList(response.split(" ")));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue3 = Volley.newRequestQueue(this);
+        requestQueue3.add(stringRequest3);
+
         }
 
 
