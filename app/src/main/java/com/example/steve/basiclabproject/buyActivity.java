@@ -64,9 +64,12 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     List dlact = new ArrayList<Double>();
     List dlong = new ArrayList<Double>();
     List prodName;
-    List resp;
-    List respIm;
+    List resp =new ArrayList();
+    List respIm= new ArrayList();
     List markers =new ArrayList();
+    List priceList= new ArrayList();
+    String strPrDc="";
+    String helpEuros="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +136,87 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
         }
         googleMap.setOnInfoWindowClickListener(this);
 
+        //volley productPrice
+        StringRequest stringRequest4 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/getPrice.php",
+                new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(String response) {
+                        priceList=(Arrays.asList(response.split("::")));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue4 = Volley.newRequestQueue(this);
+        requestQueue4.add(stringRequest4);
+
+        //volley productName
+        StringRequest stringRequest2 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/prodTitle.php",
+                new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(String response) {
+                        resp=(Arrays.asList(response.split("::")));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
+        requestQueue2.add(stringRequest2);
+
+        //volley photosDownload
+        StringRequest stringRequest3 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/downloadPhoto.php",
+                new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(String response) {
+                        respIm =(Arrays.asList(response.split(" ")));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue3 = Volley.newRequestQueue(this);
+        requestQueue3.add(stringRequest3);
+
 //volley lactitude
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/downloadChanceLactitude.php",
@@ -181,9 +265,12 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
                                 dlong.add(d);
                             }
                         }
+                        //String strIm="";
                         for(int i=0;i<dlact.size();i++) {
                             if (!(dlact.get(i).toString().isEmpty()) && !(dlong.get(i).toString().isEmpty())) {
-                                MarkerOptions marker = new MarkerOptions().position(new LatLng((Double) dlact.get(i), (Double) dlong.get(i))).title("Image here...").snippet("Title here...");
+                                strPrDc=resp.get(i).toString();
+                                helpEuros=priceList.get(i).toString();
+                                MarkerOptions marker = new MarkerOptions().position(new LatLng((Double) dlact.get(i), (Double) dlong.get(i))).title(strPrDc).snippet("Price: "+helpEuros+" Euros");
                                 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                                 googleMap.addMarker(marker);
                             }
@@ -209,59 +296,7 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
         requestQueue.add(stringRequest1);
 
 
-        //volley productName
-        StringRequest stringRequest2 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/prodTitle.php",
-                new Response.Listener<String>() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onResponse(String response) {
-                        resp=new ArrayList(Arrays.asList(response.split("::")));
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
-                        error.printStackTrace();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
-            }
 
-        };
-
-        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
-        requestQueue2.add(stringRequest2);
-
-        //volley photosDownload
-        StringRequest stringRequest3 = new StringRequest(Request.Method.POST, "https://team4success.000webhostapp.com/downloadPhoto.php",
-                new Response.Listener<String>() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onResponse(String response) {
-                        respIm = new ArrayList(Arrays.asList(response.split(" ")));
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Toast.makeText(buyActivity.this, error.toString(), LENGTH_LONG).show();
-                        error.printStackTrace();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
-            }
-
-        };
-
-        RequestQueue requestQueue3 = Volley.newRequestQueue(this);
-        requestQueue3.add(stringRequest3);
 
         }
 
@@ -291,7 +326,7 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Location");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
         currentLocationMarker = mMap.addMarker(markerOptions);
 
