@@ -340,6 +340,11 @@ header .nav-login a {
     color: #fff;
 }
 
+.main-nav ul {
+    display: inline-block;
+    margin: 0;
+}
+
 /*signup.php*/
 
 .signup-form {
