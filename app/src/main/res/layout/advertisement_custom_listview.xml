@@ -10,13 +10,13 @@
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:text="Edit"
-            android:onClick="advertisementsButtonClick"
+            android:id="@+id/advEditButton"
             android:textAllCaps="false"/>
         <Button
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:text="Delete"
-            android:onClick="advertisementsButtonClick"
+            android:id="@+id/advDeleteButton"
             android:textAllCaps="false"/>
     </LinearLayout>
 
@@ -27,25 +27,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="PoductName"
-            android:layout_margin="5dp"
-            android:textSize="17sp"
-            android:id="@+id/SellAdvName"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:hint="PoductName"
+            android:hint="Product Description"
             android:textSize="17sp"
             android:layout_margin="5dp"
             android:layout_height="wrap_content"
             android:id="@+id/SellAdvDesc"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/SellAdvPrice"
-            android:hint="PoductName"
-            android:layout_margin="5dp"
-            android:textSize="17sp"
-            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 
