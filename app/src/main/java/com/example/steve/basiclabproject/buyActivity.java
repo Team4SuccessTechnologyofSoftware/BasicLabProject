@@ -1,6 +1,7 @@
 package com.example.steve.basiclabproject;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
@@ -36,6 +39,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -70,6 +76,7 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     List priceList= new ArrayList();
     String strPrDc="";
     String helpEuros="";
+    int[] id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +142,53 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
 
         }
         googleMap.setOnInfoWindowClickListener(this);
+
+        JsonArrayRequest request = new JsonArrayRequest("https://team4success.000webhostapp.com/getDetailsbargain.php",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray jsonArray) {
+                        id= new int[jsonArray.length()];
+                        for(int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                id[i]= Integer.parseInt(jsonArray.getJSONObject(i).getString("productID"));
+                                Marker marker =googleMap.addMarker(new MarkerOptions().position((new LatLng(jsonArray.getJSONObject(i).getDouble("Lactitude"), jsonArray.getJSONObject(i).getDouble("Longtitude")))).title(jsonArray.getJSONObject(i).getString("ProductName")).snippet(jsonArray.getJSONObject(i).getString("price")+" Euros"));
+                                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                                marker.setTag(jsonArray.getJSONObject(i));
+                            } catch (JSONException e) {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(buyActivity.this);
+                                dialogBuilder.setMessage("Error: " + e.getLocalizedMessage());
+                                dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                });
+                                //Toast.makeText(buyActivity.this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                AlertDialog alertDialog= dialogBuilder.create();
+                                alertDialog.show();
+                            }
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(buyActivity.this);
+                        dialogBuilder.setMessage("Unable to fetch data: " + volleyError.getMessage());
+                        dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                        //Toast.makeText(buyActivity.this, "Unable to fetch data: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                        AlertDialog alertDialog= dialogBuilder.create();
+                        alertDialog.show();
+                    }
+                });
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(request);
 
         }
 
@@ -226,6 +280,13 @@ public class buyActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
 
     public void onInfoWindowClick(Marker marker) {
+        Intent intent = new Intent(buyActivity.this, bargain.class);
+        try {
+            intent.putExtra("Title",  marker.getTag().toString());
+        }catch (Exception e){
+            Toast.makeText(this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+        }
+        startActivity(intent);
     }
 
     @Override
