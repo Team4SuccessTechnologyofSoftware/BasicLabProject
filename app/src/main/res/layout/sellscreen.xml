@@ -34,7 +34,7 @@
         android:layout_below="@+id/productImage"
         android:layout_marginStart="5dp"
         android:layout_marginTop="25dp"
-        android:text="Product Description :"
+        android:hint="Product Description :"
         android:textAppearance="@android:style/TextAppearance.Large.Inverse"
         android:visibility="invisible" />
 

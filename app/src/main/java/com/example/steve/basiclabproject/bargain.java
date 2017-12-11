@@ -33,11 +33,8 @@ public class bargain extends AppCompatActivity {
 
         try {
             JSONObject obj = new JSONObject(getIntent().getStringExtra("Title"));
-            //Toast.makeText(bargain.this,"obj: "+obj,Toast.LENGTH_LONG).show();
            bmp = StringToBitMap(obj.getString("productImage"));
-            Drawable drawable = new BitmapDrawable(bmp);
-            bargImage.setImageDrawable(drawable);
-            bargImage.setScaleType(ImageView.ScaleType.FIT_XY);
+            bargImage.setImageBitmap(bmp);
             bargTitle.setText(obj.getString("ProductName"));
             bargDescr.setText(obj.getString("Description"));
             bargPrice.setText(obj.getString("price")+" Euros");
@@ -56,14 +53,16 @@ public class bargain extends AppCompatActivity {
         }
     }
 
-    public Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
-        } catch (Exception e) {
+        }catch(Exception e){
             e.getMessage();
             return null;
         }
     }
+
+
 }
