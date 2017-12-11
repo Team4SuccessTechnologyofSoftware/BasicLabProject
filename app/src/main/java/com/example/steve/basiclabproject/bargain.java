@@ -33,11 +33,12 @@ public class bargain extends AppCompatActivity {
 
         try {
             JSONObject obj = new JSONObject(getIntent().getStringExtra("Title"));
-           bmp = StringToBitMap(obj.getString("productImage"));
+            bmp = StringToBitMap(obj.getString("productImage"));
             bargImage.setImageBitmap(bmp);
             bargTitle.setText(obj.getString("ProductName"));
             bargDescr.setText(obj.getString("Description"));
             bargPrice.setText(obj.getString("price")+" Euros");
+            bargDetails.setText("Firstname: "+obj.getString("FirstName")+"\n"+"Lastname: "+obj.getString("LastName")+"\n"+"Email: "+obj.getString("Email")+"\n"+"Phone number: "+obj.getString("PhoneNumber"));
         } catch (JSONException e) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setMessage( "error: "+e.getLocalizedMessage());
