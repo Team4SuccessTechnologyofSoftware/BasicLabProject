@@ -38,7 +38,6 @@
         <activity
             android:name=".sellActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".MainSearch" />
         <activity android:name=".fileExplorer" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -61,7 +60,10 @@
         <activity
             android:name=".buyActivity"
             android:label="@string/title_activity_buy" />
-        <activity android:name=".bargain"></activity>
+        <activity android:name=".bargain" />
+        <activity
+            android:name=".Searchmap"
+            android:label="@string/title_activity_searchmap"></activity>
     </application>
 
 </manifest>
