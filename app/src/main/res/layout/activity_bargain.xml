@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.13"
                 android:maxHeight="180dp"
+                android:visibility="visible"
                 app:srcCompat="@drawable/onlinemarketpalces8" />
 
             <TextView
