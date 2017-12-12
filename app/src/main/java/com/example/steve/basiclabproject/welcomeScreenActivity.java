@@ -38,7 +38,7 @@ public class welcomeScreenActivity extends AppCompatActivity {
 
     }
     public void Search(View view){
-        Intent intent= new Intent(welcomeScreenActivity.this, MainSearch.class);
+        Intent intent= new Intent(welcomeScreenActivity.this, Searchmap.class);
         startActivity(intent);
     }
 }

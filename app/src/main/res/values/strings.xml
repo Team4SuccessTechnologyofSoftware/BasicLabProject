@@ -17,5 +17,6 @@
     <string name="google_maps_key">
          AIzaSyApBP4pmkJVm8X8zzmv3Ytqz2hkitSbNtA
     </string>
+    <string name="title_activity_searchmap">Map</string>
 
 </resources>
