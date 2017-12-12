@@ -1,7 +1,7 @@
 package com.example.steve.basiclabproject;
 
 /**
- * Created by James Nikolaidis on 12/3/2017.
+ * Created by ADIS HP on 5/12/2017.
  */
 
 public class product {

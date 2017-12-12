@@ -7,8 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.media.Image;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +41,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -584,8 +587,9 @@ public class sellActivity extends AppCompatActivity implements View.OnClickListe
         if (v == submit)
             uploadChance();
         else if (v == uploadImageButton) {
-            Intent intent = new Intent(this, fileExplorer.class);
-            startActivity(intent);
+            Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(pickPhoto, 1);
         } else if (v == location) {
             Intent intent = new Intent(this, setLocationActivity.class);
             startActivityForResult(intent, 5);
@@ -602,10 +606,24 @@ public class sellActivity extends AppCompatActivity implements View.OnClickListe
             longi = data.getExtras().getString("long");
             Toast.makeText(sellActivity.this, lacti + "\n" + longi, Toast.LENGTH_LONG).show();
 
+        }else if (requestCode==1){
+            if(resultCode == RESULT_OK){
+                Uri tweet_image_uri = data.getData();
+                Uri imageUri = data.getData();
+                try {
+                    bitmap= MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    productImage.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
 
     }
+
+
+
 
 
 }
