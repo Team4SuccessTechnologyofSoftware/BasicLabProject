@@ -57,7 +57,8 @@ public class advertisementsActivity extends AppCompatActivity{
                                 mProduct.setDesc(response.toString().split(",")[i]);
                                 mArray.add(mProduct);
                             }
-                            mListView.setAdapter(new advertisementsAdapter(getApplicationContext(),mArray,mActivity));
+                            mListView.setAdapter(new advertisementsAdapter(getApplicationContext(),mArray,mActivity,mListView));
+                            mListView.deferNotifyDataSetChanged();
 
 
 

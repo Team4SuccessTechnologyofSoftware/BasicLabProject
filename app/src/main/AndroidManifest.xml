@@ -34,6 +34,7 @@
         </activity>
         <activity android:name=".signUpActivity" />
         <activity android:name=".SignIn" />
+        <activity android:name=".newSellScreen" />
         <activity android:name=".user_profil_screen" />
         <activity
             android:name=".sellActivity"

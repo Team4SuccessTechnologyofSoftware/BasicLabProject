@@ -20,7 +20,7 @@ TextView usernameTextView;
                 Bundle extras= getIntent().getExtras();
                 if(extras == null)
                     return;
-                String myKeyUsername = extras.getString("usernamekey");
+                String myKeyUsername = extras.getString("username");
                 usernameTextView.setText(myKeyUsername);
             }
         });
