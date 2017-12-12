@@ -7,7 +7,8 @@
     -->
 
     <item android:id="@+id/Homes"
-        android:title="Homes" />
+        android:title="Homes"
+        android:enabled="false"/>
     <group android:checkableBehavior="single">
     <item android:id="@+id/apartement"
         android:title="apartement" />
@@ -17,7 +18,9 @@
         android:title="Country House" />
 </group>
     <item android:id="@+id/Vehicles"
-        android:title="Vehicles" />
+        android:title="Vehicles"
+        android:enabled="false"
+        />
     <group android:checkableBehavior="single">
     <item android:id="@+id/cars"
         android:title="cars" />
@@ -27,7 +30,8 @@
         android:title="bicycles" />
 </group>
     <item android:id="@+id/Computers"
-        android:title="Computers" />
+        android:title="Computers"
+        android:enabled="false" />
     <group android:checkableBehavior="single">
     <item android:id="@+id/PC"
         android:title="PC" />
@@ -40,7 +44,9 @@
         </group>
 
     <item android:id="@+id/MusicalOrgans"
-        android:title="Musical Organs" />
+        android:title="Musical Organs"
+        android:enabled="false"
+        />
     <group android:checkableBehavior="single">
     <item android:id="@+id/Guitars"
         android:title="Guitars" />
@@ -55,7 +61,8 @@
         </group>
 
     <item android:id="@+id/PersonalObjects"
-        android:title="Personal Objects" />
+        android:title="Personal Objects"
+        android:enabled="false" />
     <group android:checkableBehavior="single">
     <item android:id="@+id/furnitures"
         android:title="furnitures" />
@@ -70,7 +77,8 @@
         </group>
 
     <item android:id="@+id/clothes"
-        android:title="Clothes" />
+        android:title="Clothes"
+        android:enabled="false" />
     <group android:checkableBehavior="single">
     <item android:id="@+id/women"
         android:title="women" />
