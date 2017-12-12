@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <!-- Single menu item
+         Set id, icon and Title for each menu item
+    -->
+
+    <item android:id="@+id/Homes"
+        android:title="Homes" />
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/apartement"
+        android:title="apartement" />
+    <item android:id="@+id/residence"
+        android:title="residence" />
+    <item android:id="@+id/CountryHouse"
+        android:title="Country House" />
+</group>
+    <item android:id="@+id/Vehicles"
+        android:title="Vehicles" />
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/cars"
+        android:title="cars" />
+    <item android:id="@+id/motorbikes"
+        android:title="motorbikes" />
+    <item android:id="@+id/bicycles"
+        android:title="bicycles" />
+</group>
+    <item android:id="@+id/Computers"
+        android:title="Computers" />
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/PC"
+        android:title="PC" />
+    <item android:id="@+id/laptop"
+        android:title="laptop" />
+    <item android:id="@+id/ComputerLaptopparts"
+        android:title="Computer/Laptop parts" />
+    <item android:id="@+id/mobilePhones"
+        android:title="Mobile Phones" />
+        </group>
+
+    <item android:id="@+id/MusicalOrgans"
+        android:title="Musical Organs" />
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/Guitars"
+        android:title="Guitars" />
+    <item android:id="@+id/Basses"
+        android:title="Basses" />
+    <item android:id="@+id/Drums"
+        android:title="Drums" />
+    <item android:id="@+id/Pneumatics"
+        android:title="Pneumatics" />
+    <item android:id="@+id/ClassicalOrgans"
+        android:title="Classical Organs" />
+        </group>
+
+    <item android:id="@+id/PersonalObjects"
+        android:title="Personal Objects" />
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/furnitures"
+        android:title="furnitures" />
+    <item android:id="@+id/homeDevices"
+        android:title="Home Devices" />
+    <item android:id="@+id/Jewells"
+        android:title="Jewells" />
+    <item android:id="@+id/Design"
+        android:title="Design" />
+    <item android:id="@+id/Hobby"
+        android:title="Hobbies" />
+        </group>
+
+    <item android:id="@+id/clothes"
+        android:title="Clothes" />
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/women"
+        android:title="women" />
+    <item android:id="@+id/men"
+        android:title="men" />
+    <item android:id="@+id/boys"
+        android:title="boys" />
+    <item android:id="@+id/girls"
+        android:title="girls" />
+    </group>
+</menu>
