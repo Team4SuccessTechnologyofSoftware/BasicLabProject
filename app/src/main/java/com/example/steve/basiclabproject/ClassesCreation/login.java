@@ -46,7 +46,7 @@ public class login {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(loginActivity,"Welcome :"+response.toString().split(",")[1], Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(loginActivity,"Welcome :"+response.toString().split(",")[1], Toast.LENGTH_LONG).show();
                         if (!response.toString().isEmpty() && !response.toString().contains("no user")) {
                             Intent intent = new Intent(loginActivity, user_profil_screen.class);
                             // String userName = editTextUsername.getText().toString();

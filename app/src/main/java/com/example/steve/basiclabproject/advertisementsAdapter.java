@@ -61,7 +61,7 @@ public class advertisementsAdapter extends ArrayAdapter<product> {
           DeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "You pressed delete on product with desc" + getItem(position).getDesc(), Toast.LENGTH_LONG).show();
+     //           Toast.makeText(getContext(), "You pressed delete on product with desc" + getItem(position).getDesc(), Toast.LENGTH_LONG).show();
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_PRODUCT,
                                 new Response.Listener<String>() {
                                     @Override

@@ -43,7 +43,7 @@ public class newSellScreen extends AppCompatActivity {
         desc = (EditText)findViewById(R.id.editProductDescription);
         price = (EditText)findViewById(R.id.editProductPrice);
         location = (EditText)findViewById(R.id.editProductLocation);
-        Toast.makeText(getApplicationContext(),id,Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),id,Toast.LENGTH_LONG).show();
 
         name.setText(productName);
         desc.setText(ProductDescription);
