@@ -63,7 +63,7 @@ public class newSellScreen extends AppCompatActivity {
                         public void onResponse(String response) {
                             if (!response.toString().isEmpty())
                             {
-                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+             //                   Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                                 finish();
                             }
                         }
