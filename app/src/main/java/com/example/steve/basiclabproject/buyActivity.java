@@ -2,12 +2,15 @@ package com.example.steve.basiclabproject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -75,22 +78,9 @@ public class buyActivity extends AppCompatActivity implements OnMapReadyCallback
     private Marker currentLocationMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
     int PROXIMITY_RADIUS = 10000;
-    List lact;
-    List longs;
-    List dlact = new ArrayList<Double>();
-    List dlong = new ArrayList<Double>();
-    List prodName;
-    List resp = new ArrayList();
-    List respIm = new ArrayList();
     List markers = new ArrayList();
-    List priceList = new ArrayList();
-    String strPrDc = "";
-    String helpEuros = "";
     int[] id;
-    String subCat;
     JSONArray objectArray;
-    int sumMarks;
-    GoogleMap stMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,101 +108,122 @@ public class buyActivity extends AppCompatActivity implements OnMapReadyCallback
             case R.id.apartement:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
-                changeMapBySubCategory(item.getTitle().toString());
+               sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.residence:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.CountryHouse:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.cars:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
-                changeMapBySubCategory(item.getTitle().toString());
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.motorbikes:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
-                changeMapBySubCategory(item.getTitle().toString());
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.bicycles:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.PC:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.laptop:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.ComputerLaptopparts:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.mobilePhones:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.Guitars:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.Basses:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.Drums:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.Pneumatics:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.ClassicalOrgans:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.furnitures:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.homeDevices:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.Jewells:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.Design:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.Hobby:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.women:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.men:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.boys:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             case R.id.girls:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
+                sendJsonArraytofilter(item.getTitle().toString());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -252,19 +263,18 @@ public class buyActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
         mMap = googleMap;
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
 
-        }
+        }//
         googleMap.setOnInfoWindowClickListener(this);
-
-        readyMapCustom();
+                readyMapCustom();
 
     }
+
 
 
     protected synchronized void buildGoogleApiClient() {
@@ -360,29 +370,6 @@ public class buyActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    public void changeMapBySubCategory(String subcategory) {
-        JSONObject obj;
-        Marker mar;
-        List marks = new ArrayList<Marker>();
-        for (int i = 0; i < markers.size(); i++) {
-            mar = (Marker) markers.get(i);
-            obj = (JSONObject) mar.getTag();
-            try {
-                if (!obj.getString("subcate").toString().equals(subcategory)) {
-                    marks.add(mar);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        for (int i = 0; i < marks.size(); i++) {
-           Marker marker = (Marker) marks.get(i);
-            marker.remove();
-        }
-        if(markers.size() == marks.size())
-            Toast.makeText(buyActivity.this,"Still no bargain for this kind of product...",Toast.LENGTH_LONG).show();
-    }
-
 
     public void readyMapCustom(){
         JsonArrayRequest request = new JsonArrayRequest("https://team4success.000webhostapp.com/getDetailsbargain.php",
@@ -432,5 +419,11 @@ public class buyActivity extends AppCompatActivity implements OnMapReadyCallback
                 });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
+    }
+
+    public void sendJsonArraytofilter(String subcategory){
+        Intent intent= new Intent(buyActivity.this, filterBargain.class);
+        intent.putExtra("subcategory",subcategory);
+        startActivity(intent);
     }
 }
