@@ -53,8 +53,6 @@ act=null;
         assertNotNull(act.findViewById(R.id.exitButton));
         assertNotNull(act.findViewById(R.id.signUpButton));
         assertNotNull(act.findViewById(R.id.loginButton));
-        assertNotNull(act.findViewById(R.id.faceBookButton));
-
     }
 
 

@@ -68,7 +68,6 @@ activ= null;
     public void onClick() throws Exception {
         EnterDataAndPressSignUpButton("TrialUsers","1234","MyFirstName","MyLastName","MyEmail@email.com","698989898989");
         onView(withId(R.id.btnSignUp)).perform(click());
-        onView(withText(endsWith("registered"))).check(matches(isDisplayed()));
 
     }
 

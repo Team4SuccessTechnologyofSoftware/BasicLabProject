@@ -65,22 +65,11 @@ public class Searchmap extends FragmentActivity implements OnMapReadyCallback,
     private Marker currentLocationMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
     int PROXIMITY_RADIUS = 10000;
-    List lact;
-    List longs;
-    List dlact = new ArrayList<Double>();
-    List dlong = new ArrayList<Double>();
-    List prodName;
-    List resp =new ArrayList();
-    List respIm= new ArrayList();
-    List markers =new ArrayList();
-    List priceList= new ArrayList();
-    String strPrDc="";
-    String helpEuros="";
     int[] id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buy);
+        setContentView(R.layout.activity_searchmap);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
