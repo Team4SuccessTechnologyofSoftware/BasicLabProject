@@ -1,22 +1,38 @@
 package com.example.steve.basiclabproject;
 
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowIntent;
 import org.robolectric.shadows.ShadowToast;
 
+import static com.google.android.gms.tasks.Tasks.await;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.*;
 import static org.robolectric.Shadows.shadowOf;
 
 /**
- * Created by freaksoul on 29/10/2017.
+ * Created by root on 15/12/2017.
  */
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class SignInUnitTest {
 
     private SignIn activity;
@@ -68,12 +84,35 @@ public class SignInUnitTest {
         assertTrue(shadowActivity.isFinishing());
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void onClick() throws Exception {
-username.setText("TeoUser");
+    }
+
+    @Test
+    public void onSuccessClick() throws Exception {
+        Intent startedIntent = shadowOf(activity).getNextStartedActivity();
+        username.setText("TeoUser");
         password.setText("Pass");
         signinButton.performClick();
-        assertTrue(ShadowToast.showedToast("Connected successfully to the database!logged successfully"));
+        ShadowIntent shadowIntent = shadowOf(startedIntent);
+        assertEquals(user_profil_screen.class, shadowIntent.getIntentClass());
+    }
+
+    @Test
+    public void onFailure() throws Exception {
+        Intent startedIntent = shadowOf(activity).getNextStartedActivity();
+        username.setText("TesdfasoUser");
+        password.setText("Passsdfds");
+        signinButton.performClick();
+        ShadowIntent shadowIntent = shadowOf(startedIntent);
+        assertFalse((user_profil_screen.class.equals(shadowIntent.getIntentClass())));
+
+    }
+
+    @Test
+    public void backButtonPressed(){
+        backButton.performClick();
+        activity.isFinishing();
     }
 
 }
