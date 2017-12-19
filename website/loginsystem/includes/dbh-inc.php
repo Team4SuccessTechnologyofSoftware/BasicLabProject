@@ -1,8 +1,12 @@
-<?php
-
-$dbServername = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "id3277532_project4semester";
-
-$conn = mysqli_connect($dbServername,$dbUsername,$dbPassword,$dbName);
+ <?php
+$servername = "localhost";
+$username = "id3277532_project4semester";
+$password = "team4success";
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
+?> 

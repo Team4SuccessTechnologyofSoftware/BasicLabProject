@@ -6,17 +6,17 @@ if (isset($_POST['submit'])) {
 	
 	include 'dbh-inc.php';
 
-	$user = mysqli_real_escape_string($conn, $_POST['user']);
+	$uid = mysqli_real_escape_string($conn, $_POST['uid']);
 	$pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
 
 	//Error handles
 	//Check if inputs are empty
-	if (empty($user) || empty($pwd)) {
+	if (empty($uid) || empty($pwd)) {
 		header("Location: ../index.php?login=empty");
 		exit();
 	}
 	else {
-		$sql = "SELECT * FROM users WHERE Username='$user' OR Email='$user'";
+		$sql = "SELECT * FROM users WHERE Username='$uid' OR Email='$uid'";
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 		if ($resultCheck < 1) {
@@ -33,12 +33,12 @@ if (isset($_POST['submit'])) {
 				}
 				elseif ($hashedPwdCheck == true) {
 					//User log in
+					$_SESSION['u_uid'] = $row['Username'];
 					$_SESSION['u_id'] = $row['ID'];
-					$_SESSION['u_user'] = $row['Username'];
 					$_SESSION['u_first'] = $row['FirstName'];
 					$_SESSION['u_last'] = $row['LastName'];
 					$_SESSION['u_email'] = $row['Email'];
-					$_SESSION['u_phone'] = $row['PhoneNumber']
+					$_SESSION['u_phone'] = $row['PhoneNumber'];
 					header("Location: ../index.php?login=success");
 					exit();
 				}
@@ -49,4 +49,4 @@ if (isset($_POST['submit'])) {
 else {
 	header("Location: ../index.php?login=error");
 	exit();
-}
+} 

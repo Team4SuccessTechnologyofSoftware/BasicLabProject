@@ -4,7 +4,7 @@
 if (isset($_POST['submit'])) {
 	include_once 'dbh-inc.php';
 
-	$user = mysqli_real_escape_string($conn, $_POST['username']);
+	$uid = mysqli_real_escape_string($conn, $_POST['uid']);
 	$pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
 	$first = mysqli_real_escape_string($conn, $_POST['first']);
 	$last = mysqli_real_escape_string($conn, $_POST['last']);
@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 
 	//Error handlers
 	//Check for empty fields
-	if (empty($user) || empty($pwd) || empty($first) || empty($last) || empty($email) || empty($phone)) {
+	if (empty($first) || empty($last) || empty($email) || empty($uid) || empty($pwd) || empty($phone)) {
 
 		header("Location: ../signup.php?signup=empty");
 		exit();
@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
 				exit();
 			}
 			else {
-				$sql = "SELECT * FROM users WHERE Username ='$user'";
+				$sql = "SELECT * FROM users WHERE Username ='$uid'";
 				$result = mysqli_query($conn, $sql);
 				$resultCheck = mysqli_num_rows($result);
 
@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
 					//Hashing the password
 					$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 					//Insert the user into the database
-					$sql = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber) VALUES ('$user', '$hashedPwd', '$first', '$last', '$email', 'phone');";
+					$sql = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber) VALUES ('$uid', '$hashedPwd', '$first', '$last', '$email', '$phone');";
 					mysqli_query($conn, $sql);
 					header("Location: ../signup.php?signup=success");
 					exit();
