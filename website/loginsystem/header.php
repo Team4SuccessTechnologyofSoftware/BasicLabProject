@@ -15,13 +15,13 @@
 		<nav>
 			<div class="main-wrapper">
 				<ul class="main-nav">
-					<li><a href="index.php">Home </a></li>
+					<li><a href="index.php">Home</a></li>
 				</ul>
 				<?php
 					if (isset($_SESSION['u_id'])) {
 					 	echo '<form action="includes/sellactivity-inc.php" method="POST">
 					 		<ul>
-								<li><a href="sellactivity.php">Sell</a></li>
+								<li><a href="sell.php">Sell</a></li>
 							</ul>
 						</form>';
 					 }
