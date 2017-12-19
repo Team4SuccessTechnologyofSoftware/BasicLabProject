@@ -382,3 +382,54 @@ header .nav-login a {
 .signup-form button:hover {
     background-color: #111;
 }
+
+.sellactivity-form {
+    width: 400px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.sellactivity-form input {
+    width: 90%;
+    height: 40px;
+    padding: 0px 5%;
+    margin-bottom: 4px;
+    border: none;
+    background-color: #fff;
+    font-family: arial;
+    font-size: 16px;
+    color: #111;
+    line-height: 40px;
+}
+
+.sellactivity-form button {
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+    height: 40px;
+    border: none;
+    background-color: #222;
+    font-family: arial;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sellactivity-form button:hover {
+    background-color: #111;
+}
+
+.sellactivity-form #floating-panel {
+    top: 10px;
+    right: 10%;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+}
+#map {
+    height: 100%;
+}

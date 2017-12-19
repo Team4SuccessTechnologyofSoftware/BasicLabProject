@@ -1,11 +1,12 @@
+<?php 
+	include_once 'header.php';
+ ?>
 <?php
-mysql_connect("localhost","root","");
-mysql_select_db("loginsystem");
-if(isset($_REQUEST["submit"]))
-{
+	include_once 'dbh-inc.php';
+if(isset($_REQUEST["submit"])) {
 	if(isset($_FILES['image'])){
     echo $_FILES['image']['tmp_name'];
-}
+	}
 	$price=$_REQUEST["price"];
 	$description=$_REQUEST["description"];
 	$discount=$_REQUEST["discount"];
@@ -92,5 +93,6 @@ if(isset($_REQUEST["submit"]))
 </form>
 </div>
 </div>
-</body>
-</html>
+<?php
+	include_once 'footer.php';
+?>
